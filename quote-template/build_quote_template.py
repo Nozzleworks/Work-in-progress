@@ -4,6 +4,7 @@ Sub-totals, GST and Total are formulas driven by Qty and Unit Price.
 """
 from openpyxl import Workbook
 from openpyxl.comments import Comment
+from openpyxl.drawing.image import Image
 from openpyxl.formatting.rule import FormulaRule
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.styles.differential import DifferentialStyle
@@ -57,8 +58,9 @@ put("H9", "date are formulas - don't type over.", size=8, color="7F7F7F")
 put("H10", "Hide unused item rows before printing.", size=8, color="7F7F7F")
 
 # ---- Header: logo + company details (left), Quotation + dates (right) ----
-put("A1", "NOZZLEWORKS", size=16, color=DARK, bold=True)
-ws["A1"].comment = Comment("Logo placeholder - replace with the Nozzleworks logo (Insert > Pictures).", "Template")
+logo = Image("nozzleworks_logo.png")  # 792x101 px, whitespace trimmed
+logo.width, logo.height = 210, round(210 * 101 / 792)
+ws.add_image(logo, "A1")
 ws.merge_cells("A1:B1")
 for r, txt in [(2, "GST 144-375-106"), (3, "info@nozzleworks.co.nz"), (4, "nozzleworks.co.nz")]:
     put(f"A{r}", txt, size=7, bold=True)
