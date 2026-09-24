@@ -1,132 +1,190 @@
-"""Generate Quote_Template.xlsx — a quote whose totals recalculate from qty/unit price."""
+"""Generate Quote_Template.xlsx — Nozzleworks quote laid out like Quote_template_r1.docx.
+
+Sub-totals, GST and Total are formulas driven by Qty and Unit Price.
+"""
 from openpyxl import Workbook
 from openpyxl.comments import Comment
+from openpyxl.formatting.rule import FormulaRule
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+from openpyxl.styles.differential import DifferentialStyle
 from openpyxl.worksheet.datavalidation import DataValidation
 
-FONT = "Arial"
-BLUE = "0000FF"
-INPUT_FILL = PatternFill("solid", fgColor="FFF9C4")
-HEAD_FILL = PatternFill("solid", fgColor="1F3864")
-TOTAL_FILL = PatternFill("solid", fgColor="D9E1F2")
-thin = Side(style="thin", color="BFBFBF")
-BOX = Border(left=thin, right=thin, top=thin, bottom=thin)
-MONEY = '"$"#,##0.00;("$"#,##0.00);"-"'
+FONT = "Calibri"
+DARK, GREY, HDRFILL, RULECLR, WHITE = "404040", "666666", "4A4A4A", "CCCCCC", "FFFFFF"
+RULE = Border(top=Side(style="thin", color=RULECLR))
+MONEY = '#,##0.00;(#,##0.00);""'
+NZD = '"NZD"#,##0.00'
+DATE = "d mmm yyyy"
 
-FIRST_ROW, N_LINES = 17, 15
-LAST_ROW = FIRST_ROW + N_LINES - 1
+N_ITEMS = 10
+ITEM_HDR = 13          # line-item header row
+FIRST = ITEM_HDR + 1   # first item's data row; each item = data, description, spacer
+ITEM_ROWS = [FIRST + 3 * i for i in range(N_ITEMS)]
+LAST = ITEM_ROWS[-1] + 1
 
 wb = Workbook()
 ws = wb.active
 ws.title = "Quote"
 ws.sheet_view.showGridLines = False
-for col, w in zip("ABCDEFG", [12, 44, 8, 10, 15, 16, 3]):
+# Column widths follow the Word line-item table [441, 4272, 818, 1468, 1469, 1278] DXA
+for col, w in zip("ABCDEF", [4.5, 42, 8, 14, 14, 13]):
     ws.column_dimensions[col].width = w
+ws.column_dimensions["G"].width = 4
+ws.column_dimensions["H"].width = 16
+ws.column_dimensions["I"].width = 12
 
 
-def put(ref, value, bold=False, size=10, color="000000", inp=False, fmt=None, align=None):
+def put(ref, value=None, size=9, color=GREY, bold=False, fmt=None, h="left", v="center", wrap=False):
     c = ws[ref]
     c.value = value
-    c.font = Font(name=FONT, bold=bold, size=size, color=BLUE if inp else color)
-    if inp:
-        c.fill = INPUT_FILL
-        c.border = BOX
+    c.font = Font(name=FONT, size=size, color=color, bold=bold)
+    c.alignment = Alignment(horizontal=h, vertical=v, wrap_text=wrap)
     if fmt:
         c.number_format = fmt
-    if align:
-        c.alignment = Alignment(horizontal=align, vertical="center")
     return c
 
 
-# Header
-put("A1", "QUOTATION", bold=True, size=20, color="1F3864")
-put("A3", "Your Company Name", bold=True, size=12, inp=True)
-put("A4", "Street address, City", inp=True)
-put("A5", "Phone / Email", inp=True)
-put("A6", "GST No: 000-000-000", inp=True)
+# ---- Settings (outside the print area) ----
+put("H1", "Settings", size=10, color=DARK, bold=True)
+put("H2", "GST rate"); put("I2", 0.15, color="0000FF", fmt="0%")
+put("H3", "Validity (days)"); put("I3", 30, color="0000FF")
+ws["I2"].comment = Comment("NZ GST 15% (Inland Revenue).", "Template")
+put("H5", "Edit: quote no., quote date, customer,", size=8, color="7F7F7F")
+put("H6", "subject, part no., description, qty,", size=8, color="7F7F7F")
+put("H7", "UoM, unit price, notes and terms.", size=8, color="7F7F7F")
+put("H8", "#, sub-totals, GST, total and expiry", size=8, color="7F7F7F")
+put("H9", "date are formulas - don't type over.", size=8, color="7F7F7F")
+put("H10", "Hide unused item rows before printing.", size=8, color="7F7F7F")
 
-put("E3", "Quote No:", bold=True, align="right"); put("F3", "Q-0001", inp=True)
-put("E4", "Date:", bold=True, align="right"); put("F4", "=TODAY()", inp=True, fmt="dd/mm/yyyy")
-put("E5", "Valid (days):", bold=True, align="right"); put("F5", 30, inp=True)
-put("E6", "Valid Until:", bold=True, align="right"); put("F6", "=F4+F5", fmt="dd/mm/yyyy")
-
-put("A8", "Quote To:", bold=True)
-for r, txt in [(9, "Customer name"), (10, "Company"), (11, "Address"), (12, "Phone / Email")]:
-    put(f"A{r}", txt, inp=True)
+# ---- Header: logo + company details (left), Quotation + dates (right) ----
+put("A1", "NOZZLEWORKS", size=16, color=DARK, bold=True)
+ws["A1"].comment = Comment("Logo placeholder - replace with the Nozzleworks logo (Insert > Pictures).", "Template")
+ws.merge_cells("A1:B1")
+for r, txt in [(2, "GST 144-375-106"), (3, "info@nozzleworks.co.nz"), (4, "nozzleworks.co.nz")]:
+    put(f"A{r}", txt, size=7, bold=True)
     ws.merge_cells(f"A{r}:B{r}")
-for r in range(3, 7):
-    ws.merge_cells(f"A{r}:B{r}")
 
-put("E8", "GST Rate:", bold=True, align="right")
-gst = put("F8", 0.15, inp=True, fmt="0.0%")
-gst.comment = Comment("NZ GST standard rate 15% (Inland Revenue). Change here if needed.", "Template")
+put("D1", "Quotation", size=18, bold=True, h="right")
+ws.merge_cells("D1:F1")
+put("D2", '="# "&F3', size=11, bold=True, h="right")
+ws.merge_cells("D2:F2")
+put("E3", "Quote No :", h="right"); put("F3", "QT-26001", h="right")
+put("E4", "Quote Date :", h="right"); put("F4", "=TODAY()", fmt=DATE, h="right")
+put("E5", "Expiry Date :", h="right"); put("F5", "=F4+$I$3", fmt=DATE, h="right")
+ws.row_dimensions[1].height = 26
 
-# Line items
-headers = ["Item / Code", "Description", "Qty", "Unit", "Unit Price (excl GST)", "Line Total (excl GST)"]
-for i, h in enumerate(headers):
-    c = ws.cell(row=FIRST_ROW - 1, column=i + 1, value=h)
-    c.font = Font(name=FONT, bold=True, color="FFFFFF")
-    c.fill = HEAD_FILL
-    c.border = BOX
-    c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-ws.row_dimensions[FIRST_ROW - 1].height = 30
+# ---- To block ----
+put("A7", "Client Full Name", size=10, color=DARK, bold=True)
+put("A8", "Job Title")
+put("A9", "Company Name")
+for r in (7, 8, 9):
+    ws.merge_cells(f"A{r}:C{r}")
 
-for r in range(FIRST_ROW, LAST_ROW + 1):
-    for col, fmt in zip("ABCDE", [None, None, "#,##0.##", None, MONEY]):
-        put(f"{col}{r}", None, inp=True, fmt=fmt)
-    ws[f"B{r}"].alignment = Alignment(wrap_text=True, vertical="center")
-    put(f"F{r}", f'=IF(OR(C{r}="",E{r}=""),"",C{r}*E{r})', fmt=MONEY)
-    ws[f"F{r}"].border = BOX
+# ---- Subject ----
+put("A11", "Subject :")
+ws.merge_cells("A11:B11")
+put("A12", "Subject line", size=10, color=DARK)
+ws.merge_cells("A12:F12")
 
-# Example row so the expected format is clear
-ex = FIRST_ROW
-ws[f"A{ex}"] = "NZ-100"
-ws[f"B{ex}"] = "Example item - replace or delete this row"
+# ---- Line items ----
+for i, h in enumerate(["#", "Part No. & Description", "Qty", "UoM", "Unit Price", "Sub-Total"]):
+    c = ws.cell(row=ITEM_HDR, column=i + 1, value=h)
+    c.font = Font(name=FONT, size=9, bold=True, color=WHITE)
+    c.fill = PatternFill("solid", fgColor=HDRFILL)
+    c.alignment = Alignment(horizontal="right" if i in (2, 4, 5) else "left", vertical="center")
+ws.row_dimensions[ITEM_HDR].height = 18
+
+for n, r in enumerate(ITEM_ROWS, start=1):
+    put(f"A{r}", f'=IF(OR(B{r}<>"",C{r}<>""),{n},"")', color=DARK)
+    put(f"B{r}", None, color=DARK, bold=True)                 # part number
+    put(f"C{r}", None, color=DARK, fmt="#,##0", h="right")
+    put(f"D{r}", None)
+    put(f"E{r}", None, color=DARK, fmt=MONEY, h="right")
+    put(f"F{r}", f'=IF(OR(C{r}="",E{r}=""),"",C{r}*E{r})', color=DARK, fmt=MONEY, h="right")
+    put(f"B{r + 1}", None, wrap=True, v="top")               # description
+    if n < N_ITEMS:
+        ws.row_dimensions[r + 2].height = 6                  # spacer row
+        # thin rule between items, shown only when the next item is used
+        nxt = r + 3
+        rule = DifferentialStyle(border=Border(top=Side(style="thin", color=RULECLR)))
+        ws.conditional_formatting.add(
+            f"A{r + 2}:F{r + 2}",
+            FormulaRule(formula=[f'OR($B${nxt}<>"",$C${nxt}<>"")'], border=rule.border),
+        )
+
+# Example item so the format is clear
+ex = ITEM_ROWS[0]
+ws[f"B{ex}"] = "NW-EXAMPLE-01"
+ws[f"B{ex + 1}"] = "Example description - replace or delete this item"
 ws[f"C{ex}"] = 2
-ws[f"D{ex}"] = "ea"
+ws[f"D{ex}"] = "pcs"
 ws[f"E{ex}"] = 125.00
 
-units = DataValidation(type="list", formula1='"ea,hr,m,kg,set,lot"', allow_blank=True, showErrorMessage=False)
-ws.add_data_validation(units)
-units.add(f"D{FIRST_ROW}:D{LAST_ROW}")
+uom = DataValidation(type="list", formula1='"pcs,ea,set,m,kg,hr,lot"', allow_blank=True, showErrorMessage=False)
+ws.add_data_validation(uom)
+for r in ITEM_ROWS:
+    uom.add(f"D{r}")
 
-# Totals
-t = LAST_ROW + 2
-rows = [
-    (t, "Subtotal (excl GST)", f"=SUM(F{FIRST_ROW}:F{LAST_ROW})"),
-    (t + 1, '="GST @ "&TEXT(F8,"0.0%")', f"=ROUND(F{t}*F8,2)"),
-    (t + 2, "TOTAL (incl GST)", f"=F{t}+F{t + 1}"),
-]
-for r, label, formula in rows:
-    ws.merge_cells(f"D{r}:E{r}")
-    put(f"D{r}", label, bold=True, align="right")
-    put(f"F{r}", formula, bold=True, fmt=MONEY)
-    for col in "DEF":
-        ws[f"{col}{r}"].border = BOX
-ws[f"F{t + 2}"].font = Font(name=FONT, bold=True, size=12)
+# ---- Totals ----
+t = LAST + 2
+for col in "ABCDEF":
+    ws[f"{col}{t}"].border = RULE
+ws.row_dimensions[t].height = 6
+item_range = f"F{FIRST}:F{LAST}"
+put(f"E{t + 1}", "Sub Total", h="right"); put(f"F{t + 1}", f"=SUM({item_range})", fmt=MONEY, h="right")
+put(f"E{t + 2}", '="GST ("&TEXT($I$2,"0%")&")"', h="right")
+put(f"F{t + 2}", f"=ROUND(F{t + 1}*$I$2,2)", fmt=MONEY, h="right")
 for col in "DEF":
-    ws[f"{col}{t + 2}"].fill = TOTAL_FILL
+    ws[f"{col}{t + 3}"].border = RULE
+ws.row_dimensions[t + 3].height = 6
+put(f"E{t + 4}", "Total", size=10, color=DARK, bold=True, h="right")
+put(f"F{t + 4}", f"=F{t + 1}+F{t + 2}", size=10, color=DARK, bold=True, fmt=NZD, h="right")
 
-# Terms
-n = t + 4
-put(f"A{n}", "Notes / Terms:", bold=True)
-put(f"A{n + 1}", "Prices in NZD. Quote valid until the date shown above. Payment terms: 20th of the month following invoice.", inp=True)
-ws.merge_cells(f"A{n + 1}:F{n + 2}")
-ws[f"A{n + 1}"].alignment = Alignment(wrap_text=True, vertical="top")
+# ---- Notes ----
+n = t + 6
+put(f"A{n}", "Notes", size=11)
+notes = [
+    "Delivery: approx. 3 weeks",
+    "Shipping terms: ex-works.",
+    "Prices are GST exclusive.",
+    "Order by emailing to Info@NozzleWorks.co.nz.",
+]
+for i, txt in enumerate(notes, start=1):
+    put(f"A{n + i}", txt)
+    ws.merge_cells(f"A{n + i}:F{n + i}")
+ws.merge_cells(f"A{n}:B{n}")
 
-# Legend
-lg = n + 4
-put(f"A{lg}", "How to use:", bold=True, size=9, color="7F7F7F")
-put(f"A{lg + 1}", "Yellow cells with blue text are inputs - edit these. White cells are formulas - don't overwrite.", size=9, color="7F7F7F")
-put(f"A{lg + 2}", "Change Qty or Unit Price and the line total, subtotal, GST and total all update automatically.", size=9, color="7F7F7F")
+# ---- Terms & Conditions (page 1 short version) ----
+tc = n + len(notes) + 2
+put(f"A{tc}", "Terms & Conditions", size=11)
+ws.merge_cells(f"A{tc}:B{tc}")
+terms = [
+    "Shipping: Ex works",
+    "Payment: On account, 20th month following date of invoice",
+    '="Validity: "&$I$3&" days"',
+]
+for i, txt in enumerate(terms, start=1):
+    put(f"A{tc + i}", txt)
+    ws.merge_cells(f"A{tc + i}:F{tc + i}")
+end = tc + len(terms)
 
-# Print setup
-ws.print_area = f"A1:F{n + 2}"
+# ---- Page setup: A4, margins as the Word template, footer ----
+ws.print_area = f"A1:F{end}"
+ws.page_setup.paperSize = ws.PAPERSIZE_A4
 ws.page_setup.orientation = "portrait"
 ws.page_setup.fitToWidth = 1
 ws.page_setup.fitToHeight = 0
 ws.sheet_properties.pageSetUpPr.fitToPage = True
-ws.freeze_panes = None
+ws.page_margins.left = ws.page_margins.right = ws.page_margins.top = 0.75
+ws.page_margins.bottom = 1.0
+ws.oddFooter.left.text = "POWERED BY  NOZZLEWORKS"
+ws.oddFooter.left.font = f"{FONT},Regular"
+ws.oddFooter.left.size = 7
+ws.oddFooter.left.color = GREY
+ws.oddFooter.right.text = "&P"
+ws.oddFooter.right.font = f"{FONT},Regular"
+ws.oddFooter.right.size = 7
+ws.oddFooter.right.color = GREY
 
 wb.calculation.fullCalcOnLoad = True  # Excel computes all formulas when opened
 wb.save("Quote_Template.xlsx")
