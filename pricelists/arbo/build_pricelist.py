@@ -171,8 +171,9 @@ ws["A2"].font = Font(name=FONT, size=9, italic=True)
 inputs = [
     ("Exchange rate (EUR per 1 NZD)", 0.46, "0.000", "Per Andrew 28-Sep-2026 - to be reviewed. NZD cost = EUR / rate."),
     ("Freight rate (NZD per kg)", 30, '$#,##0.00', "Per Andrew 28-Sep-2026 - placeholder, to be updated."),
+    ("Volumetric weight factor (% on net weight)", 0.25, "0.0%", "Per Andrew 30-Sep-2026 - freight kg = net weight x (1 + factor)."),
     ("Tax / duty allowance (% of product cost)", 0.01, "0.0%", "Per Andrew 28-Sep-2026 - 1% on NZD product cost."),
-    ("Target gross profit (GP %)", 0.45, "0.0%", "ASSUMPTION - 45% GP as used in 2021 Pricework sheet. Set as required."),
+    ("List price markup (% on landed cost)", 3.5, "0%", "Per Andrew 30-Sep-2026 - 350% default, to be reviewed. List = landed x (1 + markup)."),
 ]
 r = 4
 ws.cell(r, 1, "INPUTS (edit yellow cells)").font = f_bold
@@ -181,11 +182,10 @@ for i, (label, val, fmt, note) in enumerate(inputs, start=r + 1):
     c = ws.cell(i, 3, val)
     c.font, c.fill, c.number_format, c.border = f_input, fill_input, fmt, box
     ws.cell(i, 4, note).font = Font(name=FONT, size=8, italic=True, color="666666")
-FX, FRT, DUTY, GP = "$C$5", "$C$6", "$C$7", "$C$8"
+FX, FRT, VOL, DUTY, MU = "$C$5", "$C$6", "$C$7", "$C$8", "$C$9"
 
-ws["A10"] = ("Landed cost / pc = EUR price / FX x (1 + duty) + weight kg x freight rate.   "
-             "Sell price / pc = landed cost / (1 - GP%).   "
-             "Freight is on actual catalogue weight (no volumetric check).")
+ws["A10"] = ("Landed cost / pc = EUR price / FX x (1 + duty) + net weight kg x (1 + volumetric factor) x freight rate.   "
+             "List price / pc = landed cost x (1 + markup %).")
 ws["A10"].font = Font(name=FONT, size=8, italic=True)
 ws["A11"] = ("Legend:  red Nozzleworks Part No = no NW part number assigned yet   |   "
              "amber weight = ESTIMATE, not printed in AKBO 2026 catalogue   |   "
@@ -194,10 +194,10 @@ ws["A11"].font = Font(name=FONT, size=8, italic=True)
 
 # ---------------------------------------------------------------- column headers
 HDR = 13
-heads = ["AKBO Product code", "Nozzleworks Part No", "Description", "Weight (kg)", "Weight source",
+heads = ["AKBO Product code", "Nozzleworks Part No", "Description", "Net weight (kg)", "Weight source",
          "Supplier price EUR / pc", None, None,
          "Landed cost NZD / pc", None, None,
-         "Sell price NZD / pc (ex GST)", None, None,
+         "List price NZD / pc (ex GST)", None, None,
          "Flags / notes"]
 for col, h in enumerate(heads, start=1):
     c = ws.cell(HDR, col, h)
@@ -210,7 +210,8 @@ ws.freeze_panes = ws.cell(HDR + 1, 3)
 
 # ---------------------------------------------------------------- body
 def is_tier_row(row):
-    return any(isinstance(v, str) and "pcs" in v for v in row[2:5])
+    # header rows have tier labels in C:E and no description in B
+    return row[1] is None and any(isinstance(v, str) and "pcs" in v for v in row[2:5])
 
 
 out = HDR + 1
@@ -280,8 +281,8 @@ for idx, row in enumerate(src_rows):
         S = 12 + k
         pcol = openpyxl.utils.get_column_letter(col)
         lcol = openpyxl.utils.get_column_letter(L)
-        ws.cell(rr, L, f'=IF({pcol}{rr}="","",{pcol}{rr}/{FX}*(1+{DUTY})+$D{rr}*{FRT})').number_format = NZD
-        ws.cell(rr, S, f'=IF({lcol}{rr}="","",ROUND({lcol}{rr}/(1-{GP}),2))').number_format = NZD
+        ws.cell(rr, L, f'=IF({pcol}{rr}="","",{pcol}{rr}/{FX}*(1+{DUTY})+$D{rr}*(1+{VOL})*{FRT})').number_format = NZD
+        ws.cell(rr, S, f'=IF({lcol}{rr}="","",ROUND({lcol}{rr}*(1+{MU}),2))').number_format = NZD
         ws.cell(rr, L).font = f_body
         ws.cell(rr, S).font = f_bold
     if code in CODE_NOTES:
@@ -315,11 +316,11 @@ for rr in item_rows:
     ws.cell(rr, 15).alignment = Alignment(wrap_text=True, vertical="top")
 
 ws["L5"] = "Items listed"
-ws["M5"] = f'=SUMPRODUCT(--(F{HDR+1}:F{last}<>""))'
+ws["M5"] = f'=COUNT(F{HDR+1}:F{last})'
 ws["L6"] = "No NW part no."
 ws["M6"] = f'=COUNTIF(B{HDR+1}:B{last},"NOT ASSIGNED")'
 ws["L7"] = "Estimated weights"
-ws["M7"] = f'=SUMPRODUCT(--(LEFT(E{HDR+1}:E{last},8)="ESTIMATE"))'
+ws["M7"] = f'=COUNTIF(E{HDR+1}:E{last},"ESTIMATE*")'
 for rr in (5, 6, 7):
     ws.cell(rr, 12).font = f_bold
     ws.cell(rr, 13).font = f_body
