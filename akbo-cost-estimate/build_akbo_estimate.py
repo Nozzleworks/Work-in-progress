@@ -1,34 +1,36 @@
-"""Build AKBO_Cost_Estimate.xlsx: qty x unit price per item, with subtotal, freight and NZD conversion."""
+"""Build AKBO_Cost_Estimate.xlsx: AKBO items priced from the NZL price list, with subtotal, freight and NZD conversion."""
 from pathlib import Path
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.comments import Comment
 
 OUT = Path(__file__).with_name("AKBO_Cost_Estimate.xlsx")
 
-# (code, description, note) - descriptions from akbo.nl product listings via web search, Oct 2026
+PRICELIST = Path(__file__).with_name("Pricelist_Nozzleworks_NZL_washdown_guns.xlsx")
+
+# (requested code, price list code, note) - price list code differs only where there is no exact match
 ITEMS = [
-    ("AKRSV01-B", "Squeeze valve - multi-functional cleaning valve, blue", ""),
-    ("AKRSHHL1-BL", "Low flow spray head cleaning gun", ""),
-    ("AKRS001-B", "Stainless steel (AISI304) shower head, blue", ""),
-    ("AKRSHHL4-BL", "Spray head cleaning gun", "Description not confirmed"),
-    ("TWRWR02M", "Twister stainless steel industrial spray head, model M", "Listed twice in your request"),
-    ("BMFTP11-B-PRIN", "Blue Princess economy water pistol with trigger guard", ""),
-    ("AKMN001-B", "Standard flow water gun (brass), blue", ""),
-    ("AKNN001-B", "Lightweight glass-reinforced PA66 water gun, blue", ""),
-    ("BABTN01-B", "", "Description not confirmed"),
-    ("AKRHP01-R", "Stainless steel hot-water gun with trigger protection, red", ""),
-    ("AKKS003-B", "Plastic shower head, blue", ""),
-    ("AKAWLU1-B", "", "Description not confirmed"),
-    ("AGIL572", "Light duty water gun", ""),
-    ("BABTLF1-B-V", "", "Description not confirmed"),
-    ("AKWMM01", "Water saver, brass, model M, 3/4\" female", ""),
-    ("WRWR02XL", "Twister spray head, model XL (?)", "Check code - probably TWRWR02XL"),
-    ("TWRWR02L", "Twister stainless steel industrial spray head, model L", ""),
-    ("TWRWR02M", "Twister stainless steel industrial spray head, model M", "Listed twice in your request"),
-    ("SWIFB13-C17", "Stainless steel swivelling hose tail", ""),
-    ("SWIFB19-C24", "Stainless steel swivelling hose tail", ""),
-    ("SWIFB19-C24-34", "Stainless steel swivelling hose tail", ""),
+    ("AKRSV01-B", "AKRSV01-B", ""),
+    ("AKRSHHL1-BL", "AKRSHHL1-BL", ""),
+    ("AKRS001-B", "AKR001-B", "Not in price list; using AKR001-B (st. st. shower head, blue)"),
+    ("AKRSHHL4-BL", "AKRSHH4-BL", "Not in price list; using AKRSHH4-BL (st. st. spray head, black)"),
+    ("TWRWR02M", "TWRWR02M", "Listed twice in your request"),
+    ("BMFTP11-B-PRIN", "BMFTP11-B-PRIN", ""),
+    ("AKMN001-B", "AKMN001-B", ""),
+    ("AKNN001-B", "AKNN001-B", ""),
+    ("BABTN01-B", "BABTN01-B", ""),
+    ("AKRHP01-R", "AKRHP01-R", ""),
+    ("AKKS003-B", "AKKS003-B", ""),
+    ("AKAWLU1-B", "AKAWLU1-B", ""),
+    ("AGIL572", "AGIL572", ""),
+    ("BABTLF1-B-V", "BABTLF1-BL", "Not in price list; closest is BABTLF1-BL (black) - confirm blue/Viton price with AKBO"),
+    ("AKWMM01", "AKWMM01", ""),
+    ("WRWR02XL", "TWRWR02XL", "Assumed typo for TWRWR02XL (Twister XL)"),
+    ("TWRWR02L", "TWRWR02L", ""),
+    ("TWRWR02M", "TWRWR02M", "Listed twice in your request"),
+    ("SWIFB13-C17", "SWIFB13-C17", ""),
+    ("SWIFB19-C24", "SWIFB19-C24", ""),
+    ("SWIFB19-C24-34", "SWIFB19-C24-34", ""),
 ]
 
 F = "Arial"
@@ -47,13 +49,31 @@ wb = Workbook()
 ws = wb.active
 ws.title = "AKBO Estimate"
 
+# Copy the AKBO price list (values, cols A:E) into its own sheet so the lookups are traceable
+src = load_workbook(PRICELIST, data_only=True).active
+pl = wb.create_sheet("Price List")
+for row in src.iter_rows(min_col=1, max_col=5):
+    for c in row:
+        if c.value is not None:
+            pl.cell(c.row, c.column, c.value.strip() if isinstance(c.value, str) and c.column == 1 else c.value).font = norm
+for col in range(3, 6):
+    for c in pl.iter_cols(min_col=col, max_col=col, min_row=10):
+        for cell in c:
+            if isinstance(cell.value, float):
+                cell.number_format = '€#,##0.00'
+for col, w in zip("ABCDE", [18, 80, 14, 14, 14]):
+    pl.column_dimensions[col].width = w
+PL_LAST = src.max_row
+PL_CODES = f"'Price List'!$A$1:$A${PL_LAST}"
+
 ws["A1"] = "AKBO Purchase - Cost Estimate"
 ws["A1"].font = Font(name=F, bold=True, size=14)
-ws["A2"] = ("Enter prices in the yellow cells (blue text = inputs). Totals update automatically. "
-            "Prices could not be pulled from akbo.nl, so they are left blank.")
+ws["A2"] = ("Unit prices are looked up from the AKBO price list valid from 15-08-2026 ('Price List' tab), "
+            "< 20 pcs tier. Blue text / yellow cells are inputs.")
 ws["A2"].font = Font(name=F, italic=True, size=9)
 
-headers = ["#", "AKBO Code", "Description", "Qty", "Unit Price (EUR, ex VAT)", "Line Total (EUR)", "Notes"]
+headers = ["#", "Requested Code", "Price List Code", "Description (from price list)", "Qty",
+           "Unit Price (EUR, < 20 pcs)", "Line Total (EUR)", "Notes"]
 HR = 4
 for c, h in enumerate(headers, 1):
     cell = ws.cell(HR, c, h)
@@ -61,26 +81,32 @@ for c, h in enumerate(headers, 1):
     cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
 
 first = HR + 1
-for i, (code, desc, note) in enumerate(ITEMS):
+for i, (req, code, note) in enumerate(ITEMS):
     r = first + i
     ws.cell(r, 1, i + 1).font = norm
-    ws.cell(r, 2, code).font = norm
-    ws.cell(r, 3, desc).font = norm
-    q = ws.cell(r, 4, 1); q.font = blue; q.fill = input_fill
-    p = ws.cell(r, 5); p.font = blue; p.fill = input_fill; p.number_format = EUR
-    t = ws.cell(r, 6, f"=D{r}*E{r}"); t.font = norm; t.number_format = EUR
-    ws.cell(r, 7, note).font = Font(name=F, italic=True, color="C00000" if note else "000000")
-    for c in range(1, 8):
+    ws.cell(r, 2, req).font = norm
+    k = ws.cell(r, 3, code); k.font = blue; k.fill = input_fill
+    match = f"MATCH(C{r},{PL_CODES},0)"
+    d = ws.cell(r, 4, f'=IFERROR(TRIM(CLEAN(INDEX(\'Price List\'!$B$1:$B${PL_LAST},{match}))),"NOT IN PRICE LIST")')
+    d.font = norm; d.alignment = Alignment(wrap_text=True, vertical="top")
+    q = ws.cell(r, 5, 1); q.font = blue; q.fill = input_fill
+    u = ws.cell(r, 6, f"=IFERROR(INDEX('Price List'!$C$1:$C${PL_LAST},{match}),0)")
+    u.font = Font(name=F, color="008000"); u.number_format = EUR
+    t = ws.cell(r, 7, f"=E{r}*F{r}"); t.font = norm; t.number_format = EUR
+    ws.cell(r, 8, note).font = Font(name=F, italic=True, color="C00000")
+    ws.cell(r, 8).alignment = Alignment(wrap_text=True, vertical="top")
+    for c in range(1, 9):
         ws.cell(r, c).border = box
-    ws.cell(r, 1).alignment = ws.cell(r, 4).alignment = Alignment(horizontal="center")
+        if c not in (4, 8):
+            ws.cell(r, c).alignment = Alignment(horizontal="center" if c in (1, 5) else None, vertical="top")
 last = first + len(ITEMS) - 1
 
 r = last + 2
 def row(label, formula=None, fmt=EUR, inp=False, bold_row=False, value=None, comment=None):
     global r
-    ws.cell(r, 5, label).font = bold if bold_row else norm
-    ws.cell(r, 5).alignment = Alignment(horizontal="right")
-    c = ws.cell(r, 6, formula if formula is not None else value)
+    ws.cell(r, 6, label).font = bold if bold_row else norm
+    ws.cell(r, 6).alignment = Alignment(horizontal="right")
+    c = ws.cell(r, 7, formula if formula is not None else value)
     c.number_format = fmt
     c.font = blue if inp else (bold if bold_row else norm)
     if inp:
@@ -91,33 +117,34 @@ def row(label, formula=None, fmt=EUR, inp=False, bold_row=False, value=None, com
     r += 1
     return r - 1
 
-items_row = row("Items (count)", f"=COUNTA(B{first}:B{last})", fmt="0")
-qty_row = row("Total qty", f"=SUM(D{first}:D{last})", fmt="0")
-sub_row = row("Subtotal (EUR)", f"=SUM(F{first}:F{last})", bold_row=True)
+row("Lines", f"=COUNTA(B{first}:B{last})", fmt="0")
+row("Total qty", f"=SUM(E{first}:E{last})", fmt="0")
+sub_row = row("Subtotal (EUR, ex VAT)", f"=SUM(G{first}:G{last})", bold_row=True)
 frt_row = row("Freight / shipping (EUR)", inp=True, comment="Enter AKBO's freight quote to NZ, if known.")
-tot_row = row("Total (EUR)", f"=F{sub_row}+F{frt_row}", bold_row=True)
+tot_row = row("Total (EUR)", f"=G{sub_row}+G{frt_row}", bold_row=True)
 r += 1
 fx_row = row("Exchange rate (NZD per 1 EUR)", inp=True, fmt="0.0000",
              comment="Enter the current EUR to NZD rate (e.g. from your bank on the day of purchase).")
-nzd_row = row("Total (NZD, before GST/duty)", f"=F{tot_row}*F{fx_row}", fmt=NZD, bold_row=True)
+nzd_row = row("Total (NZD, before GST/duty)", f"=G{tot_row}*G{fx_row}", fmt=NZD, bold_row=True)
 gst_row = row("NZ GST rate on import", value=0.15, inp=True, fmt="0%",
               comment="NZ GST 15% charged on import (on value + freight). Set to 0% to exclude.")
-gst_amt = row("GST (NZD)", f"=F{nzd_row}*F{gst_row}", fmt=NZD)
-grand = row("Estimated landed total (NZD incl GST)", f"=F{nzd_row}+F{gst_amt}", fmt=NZD, bold_row=True)
-ws.cell(grand, 6).fill = PatternFill("solid", fgColor="DDEBF7")
+gst_amt = row("GST (NZD)", f"=G{nzd_row}*G{gst_row}", fmt=NZD)
+grand = row("Estimated landed total (NZD incl GST)", f"=G{nzd_row}+G{gst_amt}", fmt=NZD, bold_row=True)
+ws.cell(grand, 7).fill = PatternFill("solid", fgColor="DDEBF7")
 
 r += 1
 ws.cell(r, 1, "Notes").font = bold
 for n in [
-    "Source: product descriptions from akbo.nl product listings (AKBO Handelsmij B.V.). Prices need to be taken from your AKBO price list / dealer login.",
-    "TWRWR02M appears twice in the original list, so it is included twice (qty 1 each). Delete one row if that was unintended.",
-    "WRWR02XL does not match AKBO's naming; it is probably TWRWR02XL (Twister model XL). Confirm before ordering.",
+    "Source: AKBO price list for Nozzleworks NZL (washdown guns), valid from 15-08-2026. Prices in EUR per piece, < 20 pcs tier (qty 1 each).",
+    "Green prices are looked up from the 'Price List' tab by Price List Code. Change a code in column C to re-price that line.",
+    "Three requested codes are not in the price list and use the closest match (see Notes column). WRWR02XL is treated as TWRWR02XL.",
+    "TWRWR02M appears twice in the original list, so it is included twice. Delete one row if that was unintended.",
     "Customs duty, import fees and brokerage are not included.",
 ]:
     r += 1
     ws.cell(r, 1, "- " + n).font = Font(name=F, size=9)
 
-for col, w in zip("ABCDEFG", [5, 18, 55, 7, 22, 22, 34]):
+for col, w in zip("ABCDEFGH", [5, 17, 17, 55, 6, 20, 18, 40]):
     ws.column_dimensions[col].width = w
 ws.row_dimensions[HR].height = 30
 ws.freeze_panes = ws.cell(first, 1)
