@@ -73,8 +73,18 @@ ws["A2"] = ("Unit prices are looked up from the AKBO price list valid from 15-08
 ws["A2"].font = Font(name=F, italic=True, size=9)
 
 headers = ["#", "Requested Code", "Price List Code", "Description (from price list)", "Qty",
-           "Unit Price (EUR, < 20 pcs)", "Line Total (EUR)", "Notes"]
+           "Unit Price (EUR, < 20 pcs)", "Line Total (EUR)", "Product Weight (kg/pc)",
+           "Shipping Weight (kg)", "Notes"]
 HR = 4
+WM = "$G$3"  # shipping weight allowance cell
+ws["F3"] = "Shipping weight allowance (on product weight)"
+ws["F3"].font = norm
+ws["F3"].alignment = Alignment(horizontal="right")
+ws[WM.replace("$", "")] = 0.30
+ws[WM.replace("$", "")].font = blue
+ws[WM.replace("$", "")].fill = input_fill
+ws[WM.replace("$", "")].number_format = "0%"
+ws[WM.replace("$", "")].comment = Comment("Shipping weight = product weight + 30% for packaging.", "Estimate")
 for c, h in enumerate(headers, 1):
     cell = ws.cell(HR, c, h)
     cell.font, cell.fill, cell.border = hdr_font, hdr_fill, box
@@ -93,11 +103,13 @@ for i, (req, code, note) in enumerate(ITEMS):
     u = ws.cell(r, 6, f"=IFERROR(INDEX('Price List'!$C$1:$C${PL_LAST},{match}),0)")
     u.font = Font(name=F, color="008000"); u.number_format = EUR
     t = ws.cell(r, 7, f"=E{r}*F{r}"); t.font = norm; t.number_format = EUR
-    ws.cell(r, 8, note).font = Font(name=F, italic=True, color="C00000")
-    ws.cell(r, 8).alignment = Alignment(wrap_text=True, vertical="top")
-    for c in range(1, 9):
+    wt = ws.cell(r, 8); wt.font = blue; wt.fill = input_fill; wt.number_format = "0.000"
+    sw = ws.cell(r, 9, f'=IF(H{r}="","",E{r}*H{r}*(1+{WM}))'); sw.font = norm; sw.number_format = "0.000"
+    ws.cell(r, 10, note).font = Font(name=F, italic=True, color="C00000")
+    ws.cell(r, 10).alignment = Alignment(wrap_text=True, vertical="top")
+    for c in range(1, 11):
         ws.cell(r, c).border = box
-        if c not in (4, 8):
+        if c not in (4, 10):
             ws.cell(r, c).alignment = Alignment(horizontal="center" if c in (1, 5) else None, vertical="top")
 last = first + len(ITEMS) - 1
 
@@ -119,6 +131,9 @@ def row(label, formula=None, fmt=EUR, inp=False, bold_row=False, value=None, com
 
 row("Lines", f"=COUNTA(B{first}:B{last})", fmt="0")
 row("Total qty", f"=SUM(E{first}:E{last})", fmt="0")
+row("Lines missing a weight", f'=COUNTBLANK(H{first}:H{last})', fmt="0")
+row("Total product weight (kg)", f"=SUMPRODUCT(E{first}:E{last},H{first}:H{last})", fmt="0.00")
+row("Total shipping weight (kg)", f"=SUM(I{first}:I{last})", fmt="0.00", bold_row=True)
 sub_row = row("Subtotal (EUR, ex VAT)", f"=SUM(G{first}:G{last})", bold_row=True)
 frt_row = row("Freight / shipping (EUR)", inp=True, comment="Enter AKBO's freight quote to NZ, if known.")
 tot_row = row("Total (EUR)", f"=G{sub_row}+G{frt_row}", bold_row=True)
@@ -139,12 +154,13 @@ for n in [
     "Green prices are looked up from the 'Price List' tab by Price List Code. Change a code in column C to re-price that line.",
     "Three requested codes are not in the price list and use the closest match (see Notes column). WRWR02XL is treated as TWRWR02XL.",
     "TWRWR02M appears twice in the original list, so it is included twice. Delete one row if that was unintended.",
+    "Product weights are not in the AKBO price list - enter kg per piece in column H. Shipping weight = qty x product weight x (1 + allowance in G3, 30%).",
     "Customs duty, import fees and brokerage are not included.",
 ]:
     r += 1
     ws.cell(r, 1, "- " + n).font = Font(name=F, size=9)
 
-for col, w in zip("ABCDEFGH", [5, 17, 17, 55, 6, 20, 18, 40]):
+for col, w in zip("ABCDEFGHIJ", [5, 17, 17, 55, 6, 20, 18, 14, 14, 40]):
     ws.column_dimensions[col].width = w
 ws.row_dimensions[HR].height = 30
 ws.freeze_panes = ws.cell(first, 1)
