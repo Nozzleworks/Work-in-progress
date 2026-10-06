@@ -378,12 +378,12 @@ for rr in (5, 6, 7):
     ws.cell(rr, 14).font = f_body
 
 # ---------------------------------------------------------------- working section (far right)
-# Q spacer | R list price (input) | S discount % (input) | T net price | U GP %
-# GP is measured against the landed cost at the first (smallest) qty break, column J.
+# Q spacer | R list price (input) | S discount % (input) | T net price | U GP % 1st break | V GP % 2nd break
+# GP is measured against the landed cost at the 1st qty break (column J) and the 2nd (column K).
 GP_MIN = "$S$7"
 ws["R4"] = "WORKING SECTION - type a list price and discount (yellow); net price and GP % calculate."
 ws["R4"].font = f_bold
-ws["R5"] = "GP % = (net price - landed cost at 1st qty break) / net price."
+ws["R5"] = "GP % = (net price - landed cost) / net price, at the 1st and 2nd qty breaks (2nd = >= 20 pcs for guns, >= 10 pcs for heads & fittings)."
 ws["R5"].font = Font(name=FONT, size=8, italic=True, color="666666")
 ws["R7"] = "Flag GP % below"
 ws["R7"].font = f_body
@@ -392,7 +392,8 @@ c.value, c.font, c.fill, c.number_format, c.border = 0.30, f_input, fill_input, 
 ws["T7"] = "ASSUMPTION - 30% warning level, set as required."
 ws["T7"].font = Font(name=FONT, size=8, italic=True, color="666666")
 
-for col, h in ((18, "List price NZD / pc"), (19, "Discount %"), (20, "Net price NZD / pc"), (21, "GP %")):
+for col, h in ((18, "List price NZD / pc"), (19, "Discount %"), (20, "Net price NZD / pc"), (21, "GP % at 1st qty break"),
+                 (22, "GP % at 2nd qty break")):
     c = ws.cell(HDR, col, h)
     c.font, c.fill, c.border = f_hdr, fill_section, box
     c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
@@ -406,20 +407,25 @@ for r_ in range(HDR + 1, last + 1):
             c.number_format, c.font, c.fill, c.border = fmt, f_input, fill_input, box
         t = ws.cell(r_, 20, f'=IF($R{r_}="","",ROUND($R{r_}*(1-N($S{r_})),2))')
         u = ws.cell(r_, 21, f'=IF(OR($T{r_}="",$T{r_}=0,$J{r_}=""),"",($T{r_}-$J{r_})/$T{r_})')
+        v = ws.cell(r_, 22, f'=IF(OR($T{r_}="",$T{r_}=0,$K{r_}=""),"",($T{r_}-$K{r_})/$T{r_})')
         t.number_format, t.font, t.border = NZD, f_bold, box
-        u.number_format, u.font, u.border = GPC, f_body, box
+        for g in (u, v):
+            g.number_format, g.font, g.border = GPC, f_body, box
     elif isinstance(ws.cell(r_, 7).value, str) and "pcs" in ws.cell(r_, 7).value:
-        for col in range(18, 22):
+        for col in range(18, 23):
             ws.cell(r_, col).fill = fill_hdr
+        for col, src_col in ((21, 7), (22, 8)):  # show which break each GP column uses
+            c = ws.cell(r_, col, ws.cell(r_, src_col).value)
+            c.font, c.alignment = f_hdr, Alignment(horizontal="center")
     elif first.value is not None and first.fill.fgColor.rgb not in (None, "00000000"):
-        for col in range(18, 22):
+        for col in range(18, 23):
             ws.cell(r_, col).fill = PatternFill("solid", fgColor=first.fill.fgColor.rgb)
 
 ws.conditional_formatting.add(
-    f"U{HDR+1}:U{last}",
+    f"U{HDR+1}:V{last}",
     FormulaRule(formula=[f'AND(ISNUMBER(U{HDR+1}),U{HDR+1}<{GP_MIN})'], fill=fill_amber))
 ws.column_dimensions["Q"].width = 3
-for col, wdt in (("R", 12), ("S", 10), ("T", 12), ("U", 9)):
+for col, wdt in (("R", 12), ("S", 10), ("T", 12), ("U", 10), ("V", 10)):
     ws.column_dimensions[col].width = wdt
 
 ws.print_title_rows = f"{HDR}:{HDR}"
