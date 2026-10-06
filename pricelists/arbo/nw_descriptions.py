@@ -1,8 +1,8 @@
 """Proposed Nozzleworks product descriptions for AKBO items.
 
 Structure:  <Series> <product>, <feature(s)>, <colour>, <material>
-e.g.        Classic water gun, w/o trigger insulation, blue, brass
-            Blue King water gun, w/o trigger guard, blue, brass
+e.g.        Classic WD gun, w/o trigger insulation, blue, brass
+            Blue King WD gun, w/o trigger guard, blue, brass
 
 Series names follow the NozzleWorks brochures, v3 2026-10-06
 (OneDrive: 01 Marketing/04 Brochures/AKBO NL/NozzleWorks_Brochures_2026-10-06_v3):
@@ -38,45 +38,45 @@ def _d(*parts):
 
 FIXED = {
     # ---- Heavy duty guns
-    "AKNN001-B": _d("Classic Lite water gun", NTG, "blue", PA),
-    "BMFT001-B": _d("Blue Princess water gun", NTG, "blue", BR),
-    "BMFT001-B-PRIN": _d("Blue Princess water gun", NTG, "PRINCESS logo", "blue", BR),
-    "BMFTP11-B-PRIN": _d("Blue Princess water gun", TG, "PRINCESS logo", "blue", BR),
-    "AKMNP01-B": _d("Classic Plus water gun", TG, "blue", BR),
-    "AKMN011-B": _d("Blue King water gun", NTG, "blue", BR),
-    "AKMN011-B-KING": _d("Blue King water gun", NTG, "KING logo", "blue", BR),
-    "AKMNP11-B": _d("Blue King water gun", TG, "blue", BR),
-    "AKMNP11-B-KING": _d("Blue King water gun", TG, "KING logo", "blue", BR),
-    "AKMB001-BL": _d("Classic High-Flow water gun", NTG, "black", BR),
-    "AKMBP01-BL": _d("Classic High-Flow water gun", TG, "black", BR),
-    "AKRB001-BL": _d("Classic High-Flow water gun", NTG, "black", SS),
-    "AKCN001-B": _d("Classic Protection Plus water gun", NTG, "blue", CR),
-    "AKCNP01-B": _d("Classic Protection Plus water gun", TG, "blue", CR),
-    "AKCNP01-W": _d("Classic Protection Plus water gun", TG, "white", CR),
-    "BRFT003-B": _d("Blue Princess water gun", NTG, "blue", SS),
-    "BRFT003-B-PRIN": _d("Blue Princess water gun", NTG, "PRINCESS logo", "blue", SS),
-    "BRFTP03-B-PRIN": _d("Blue Princess water gun", TG, "PRINCESS logo", "blue", SS),
-    "AKRN001-B": _d("Classic SS water gun", NTG, "blue", SS),
-    "AKRN001-W": _d("Classic SS water gun", NTG, "white", SS),
-    "AKRNP01-B": _d("Classic SS water gun", TG, "blue", SS),
-    "AKRNP01-W": _d("Classic SS water gun", TG, "white", SS),
-    "AKRHP01-R": _d("Classic Hot Wash water gun", TG, "Teflon/air insulated grip", "red", SS),
-    "AKRHPB1-R": _d("Classic Hot Wash water gun", TG, "high flow", "Teflon/air insulated grip", "red", SS),
-    "AKRHP02-R-L40": _d("Classic Hot Wash water gun", TG, "40 cm lance", "Teflon/air insulated grip", "red", SS),
-    "AKRNP01-BL-EX": _d("Classic ATEX water gun", TG, "Zone 1 & 2", "black", SS),
-    "AKRN002-LB-LAT": _d("Classic SS Sterilisable water gun", "latex jacket", "light blue", SS),
+    "AKNN001-B": _d("Classic Lite WD gun", NTG, "blue", PA),
+    "BMFT001-B": _d("Blue Princess WD gun", NTG, "blue", BR),
+    "BMFT001-B-PRIN": _d("Blue Princess WD gun", NTG, "PRINCESS logo", "blue", BR),
+    "BMFTP11-B-PRIN": _d("Blue Princess WD gun", TG, "PRINCESS logo", "blue", BR),
+    "AKMNP01-B": _d("Classic Plus WD gun", TG, "blue", BR),
+    "AKMN011-B": _d("Blue King WD gun", NTG, "blue", BR),
+    "AKMN011-B-KING": _d("Blue King WD gun", NTG, "KING logo", "blue", BR),
+    "AKMNP11-B": _d("Blue King WD gun", TG, "blue", BR),
+    "AKMNP11-B-KING": _d("Blue King WD gun", TG, "KING logo", "blue", BR),
+    "AKMB001-BL": _d("Classic High-Flow WD gun", NTG, "black", BR),
+    "AKMBP01-BL": _d("Classic High-Flow WD gun", TG, "black", BR),
+    "AKRB001-BL": _d("Classic High-Flow WD gun", NTG, "black", SS),
+    "AKCN001-B": _d("Classic Protection Plus WD gun", NTG, "blue", CR),
+    "AKCNP01-B": _d("Classic Protection Plus WD gun", TG, "blue", CR),
+    "AKCNP01-W": _d("Classic Protection Plus WD gun", TG, "white", CR),
+    "BRFT003-B": _d("Blue Princess WD gun", NTG, "blue", SS),
+    "BRFT003-B-PRIN": _d("Blue Princess WD gun", NTG, "PRINCESS logo", "blue", SS),
+    "BRFTP03-B-PRIN": _d("Blue Princess WD gun", TG, "PRINCESS logo", "blue", SS),
+    "AKRN001-B": _d("Classic SS WD gun", NTG, "blue", SS),
+    "AKRN001-W": _d("Classic SS WD gun", NTG, "white", SS),
+    "AKRNP01-B": _d("Classic SS WD gun", TG, "blue", SS),
+    "AKRNP01-W": _d("Classic SS WD gun", TG, "white", SS),
+    "AKRHP01-R": _d("Classic Hot Wash WD gun", TG, "Teflon/air insulated grip", "red", SS),
+    "AKRHPB1-R": _d("Classic Hot Wash WD gun", TG, "high flow", "Teflon/air insulated grip", "red", SS),
+    "AKRHP02-R-L40": _d("Classic Hot Wash WD gun", TG, "40 cm lance", "Teflon/air insulated grip", "red", SS),
+    "AKRNP01-BL-EX": _d("Classic ATEX WD gun", TG, "Zone 1 & 2", "black", SS),
+    "AKRN002-LB-LAT": _d("Classic SS Sterilisable WD gun", "latex jacket", "light blue", SS),
     "AKRSV01-B": _d("The Squeezer valve", 'self-closing, 1/2" F x 1/2" F', "blue", SS304),
     "AKR001-B": _d("The Squeezer shower head", '1/2" M', "blue", SS304 + " / PA66"),
     # ---- Baby series
-    "BABTN01-B": _d("Baby water gun", "rear trigger", "blue", AL),
-    "BABTLF1-BL": _d("Baby water gun", 'rear trigger, 1/2" F outlet', "black", AL),
-    "BABTA01-B": _d("Baby water gun", "rear trigger, adapter outlet", "blue", AL),
-    "BABTNAA-B": _d("Baby water gun", "rear trigger, adapter inlet & outlet", "blue", AL),
-    "BMBTN01-B": _d("Baby water gun", "rear trigger", "blue", BR),
-    "BMBNN01-B": _d("Baby water gun", 'rear trigger, 1/2" M outlet, adjustable nozzle', "blue", BR),
-    "BMBTL01-B": _d("Baby water gun", 'rear trigger, 1/2" M outlet', "blue", BR),
-    "BMBTA01-B": _d("Baby water gun", "rear trigger, adapter outlet", "blue", BR),
-    "BMBTA02-B-V": _d("Baby water gun", "rear trigger, adapter outlet, Viton seals", "blue", BR),
+    "BABTN01-B": _d("Baby WD gun", "rear trigger", "blue", AL),
+    "BABTLF1-BL": _d("Baby WD gun", 'rear trigger, 1/2" F outlet', "black", AL),
+    "BABTA01-B": _d("Baby WD gun", "rear trigger, adapter outlet", "blue", AL),
+    "BABTNAA-B": _d("Baby WD gun", "rear trigger, adapter inlet & outlet", "blue", AL),
+    "BMBTN01-B": _d("Baby WD gun", "rear trigger", "blue", BR),
+    "BMBNN01-B": _d("Baby WD gun", 'rear trigger, 1/2" M outlet, adjustable nozzle', "blue", BR),
+    "BMBTL01-B": _d("Baby WD gun", 'rear trigger, 1/2" M outlet', "blue", BR),
+    "BMBTA01-B": _d("Baby WD gun", "rear trigger, adapter outlet", "blue", BR),
+    "BMBTA02-B-V": _d("Baby WD gun", "rear trigger, adapter outlet, Viton seals", "blue", BR),
     # ---- Other guns / spray heads
     "AGIL572": _d("Spray Gun XS Lite", '3/4" GHT outlet', "red", "chrome-plated zinc"),
     "AKMSHH4-BL": _d("Twistflow WD Nozzle", 'head only, 1/2" M', "black", BR),
@@ -92,7 +92,7 @@ FIXED = {
     "TWRWR02M": _d("Twistflow M WD Nozzle", '1/2" BSPP M, 60° cone', "white / red guard", SS304),
     "TWRWR02L": _d("Twistflow L WD Nozzle", '3/4" BSPP M, 60° cone', "white / red guard", SS304),
     "TWRWR02XL": _d("Twistflow XL WD Nozzle", '1" BSPP M, 60° cone', "white / red guard", SS304),
-    "AKAWLU1-B": _d("Air-Boosted water gun", "2x 10 mm hose tails (air & water)", "blue", AL),
+    "AKAWLU1-B": _d("Air-Boosted WD gun", "2x 10 mm hose tails (air & water)", "blue", AL),
     "BWNM045": _d("Blue Nozzle sprayer", '4.5 mm outlet, 3/4" F', "blue", BR),
     # ---- Shower heads
     "AKKS003-B": _d("Shower Wash Head", '1/2" F', "blue", PA),
@@ -107,8 +107,8 @@ FIXED = {
 }
 
 for c in ["B", "R", "G", "BL", "Y", "W"]:
-    FIXED[f"KLMN001-{c}"] = _d("Classic water gun", "w/o trigger insulation", COLOURS[c], BR)
-    FIXED[f"AKMN001-{c}"] = _d("Classic Plus water gun", NTG, COLOURS[c], BR)
+    FIXED[f"KLMN001-{c}"] = _d("Classic WD gun", "w/o trigger insulation", COLOURS[c], BR)
+    FIXED[f"AKMN001-{c}"] = _d("Classic Plus WD gun", NTG, COLOURS[c], BR)
 for c in ["B", "R", "W"]:
     FIXED[f"AKMSH03-{c}"] = _d("Twistflow WD Nozzle", "w/ handle", f"black head / {COLOURS[c]} handle", BR)
     FIXED[f"AKRSH03-{c}"] = _d("Twistflow WD Nozzle", "w/ handle", f"black head / {COLOURS[c]} handle",
