@@ -378,70 +378,49 @@ for rr in (5, 6, 7):
     ws.cell(rr, 14).font = f_body
 
 # ---------------------------------------------------------------- working section (far right)
-# Q spacer | R discount % (per row, blank = default) | S:U net price | V:X GP NZD | Y:AA GP %
-DISC_DEF, GP_MIN = "$U$6", "$U$7"
-ws["R4"] = "WORKING SECTION - discount / net price / gross profit"
+# Q spacer | R list price (input) | S discount % (input) | T net price | U GP %
+# GP is measured against the landed cost at the first (smallest) qty break, column J.
+GP_MIN = "$S$7"
+ws["R4"] = "WORKING SECTION - type a list price and discount (yellow); net price and GP % calculate."
 ws["R4"].font = f_bold
-ws["R5"] = "Edit yellow cells. Row discount overrides the default; GP = net price - landed cost."
+ws["R5"] = "GP % = (net price - landed cost at 1st qty break) / net price."
 ws["R5"].font = Font(name=FONT, size=8, italic=True, color="666666")
-for rr_, (label, val, fmt) in zip((6, 7), (("Default discount % off list", 0.0, "0.0%"),
-                                          ("Flag GP % below", 0.30, "0.0%"))):
-    ws.cell(rr_, 18, label).font = f_body
-    c = ws.cell(rr_, 21, val)
-    c.font, c.fill, c.number_format, c.border = f_input, fill_input, fmt, box
-ws["V7"] = "ASSUMPTION - 30% warning level, set as required."
-ws["V7"].font = Font(name=FONT, size=8, italic=True, color="666666")
+ws["R7"] = "Flag GP % below"
+ws["R7"].font = f_body
+c = ws["S7"]
+c.value, c.font, c.fill, c.number_format, c.border = 0.30, f_input, fill_input, "0.0%", box
+ws["T7"] = "ASSUMPTION - 30% warning level, set as required."
+ws["T7"].font = Font(name=FONT, size=8, italic=True, color="666666")
 
-for col, h in ((18, "Discount % (row)"), (19, "Net price NZD / pc (after discount)"),
-               (22, "Gross profit NZD / pc"), (25, "GP % of net price")):
+for col, h in ((18, "List price NZD / pc"), (19, "Discount %"), (20, "Net price NZD / pc"), (21, "GP %")):
     c = ws.cell(HDR, col, h)
     c.font, c.fill, c.border = f_hdr, fill_section, box
     c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-for c1 in (19, 22, 25):
-    for k in range(3):
-        cc = ws.cell(HDR, c1 + k)
-        cc.fill, cc.border = fill_section, box
-    ws.merge_cells(start_row=HDR, start_column=c1, end_row=HDR, end_column=c1 + 2)
 
 GPC = '0.0%;[Red]-0.0%;"-"'
 for r_ in range(HDR + 1, last + 1):
     first = ws.cell(r_, 1)
     if r_ in item_rows:
-        dc = ws.cell(r_, 18)
-        dc.number_format, dc.font, dc.fill, dc.border = "0.0%", f_input, fill_input, box
-        disc = f'IF($R{r_}="",{DISC_DEF},$R{r_})'
-        for k in range(3):
-            L = openpyxl.utils.get_column_letter(10 + k)   # landed
-            S_ = openpyxl.utils.get_column_letter(13 + k)  # list
-            N = openpyxl.utils.get_column_letter(19 + k)   # net
-            G = openpyxl.utils.get_column_letter(22 + k)   # GP $
-            ws.cell(r_, 19 + k, f'=IF({S_}{r_}="","",ROUND({S_}{r_}*(1-{disc}),2))').number_format = NZD
-            ws.cell(r_, 22 + k, f'=IF({N}{r_}="","",{N}{r_}-{L}{r_})').number_format = NZD
-            ws.cell(r_, 25 + k, f'=IF(OR({N}{r_}="",{N}{r_}=0),"",{G}{r_}/{N}{r_})').number_format = GPC
-            for col in (19 + k, 22 + k, 25 + k):
-                ws.cell(r_, col).font = f_body
-                ws.cell(r_, col).border = box
-            ws.cell(r_, 19 + k).font = f_bold
+        for col, fmt in ((18, NZD), (19, "0.0%")):
+            c = ws.cell(r_, col)
+            c.number_format, c.font, c.fill, c.border = fmt, f_input, fill_input, box
+        t = ws.cell(r_, 20, f'=IF($R{r_}="","",ROUND($R{r_}*(1-N($S{r_})),2))')
+        u = ws.cell(r_, 21, f'=IF(OR($T{r_}="",$T{r_}=0,$J{r_}=""),"",($T{r_}-$J{r_})/$T{r_})')
+        t.number_format, t.font, t.border = NZD, f_bold, box
+        u.number_format, u.font, u.border = GPC, f_body, box
     elif isinstance(ws.cell(r_, 7).value, str) and "pcs" in ws.cell(r_, 7).value:
-        for base in (19, 22, 25):
-            for k in range(3):
-                c = ws.cell(r_, base + k, ws.cell(r_, 7 + k).value)
-                c.font, c.fill, c.border = f_hdr, fill_hdr, box
-                c.alignment = Alignment(horizontal="center")
-        ws.cell(r_, 18).fill = fill_hdr
+        for col in range(18, 22):
+            ws.cell(r_, col).fill = fill_hdr
     elif first.value is not None and first.fill.fgColor.rgb not in (None, "00000000"):
-        for col in range(18, 28):
+        for col in range(18, 22):
             ws.cell(r_, col).fill = PatternFill("solid", fgColor=first.fill.fgColor.rgb)
 
 ws.conditional_formatting.add(
-    f"Y{HDR+1}:AA{last}",
-    FormulaRule(formula=[f'AND(ISNUMBER(Y{HDR+1}),Y{HDR+1}<{GP_MIN})'], fill=fill_amber))
+    f"U{HDR+1}:U{last}",
+    FormulaRule(formula=[f'AND(ISNUMBER(U{HDR+1}),U{HDR+1}<{GP_MIN})'], fill=fill_amber))
 ws.column_dimensions["Q"].width = 3
-ws.column_dimensions["R"].width = 11
-for col in ("S", "T", "U", "V", "W", "X"):
-    ws.column_dimensions[col].width = 11
-for col in ("Y", "Z", "AA"):
-    ws.column_dimensions[col].width = 9
+for col, wdt in (("R", 12), ("S", 10), ("T", 12), ("U", 9)):
+    ws.column_dimensions[col].width = wdt
 
 ws.print_title_rows = f"{HDR}:{HDR}"
 ws.page_setup.orientation = "landscape"
