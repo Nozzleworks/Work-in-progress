@@ -132,6 +132,7 @@ CODE_NOTES = {
     "BRFTP03-B-PRIN": "Pricelist code BRFTP03 vs catalogue/conversion BRFTP13 - confirm with AKBO.",
     "AKR001-B": "Catalogue code is AKRS001-B - confirm with AKBO.",
     "AKMBP01-BL": "Catalogue only lists AKMBP01-B-SWM14-3/4 (with swivel) - confirm model.",
+    "AKRB001-BL": "Not in Classic High-Flow brochure (brass only) - series name to confirm.",
 }
 
 # ---------------------------------------------------------------- styles

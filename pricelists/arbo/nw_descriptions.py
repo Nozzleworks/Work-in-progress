@@ -4,20 +4,21 @@ Structure:  <Series> <product>, <feature(s)>, <colour>, <material>
 e.g.        Classic water gun, w/o trigger insulation, blue, brass
             Blue King water gun, w/o trigger guard, blue, brass
 
-Series names follow the NozzleWorks brochures
-(OneDrive: 01 Marketing/04 Brochures/AKBO NL/NozzleWorks_Brochures):
+Series names follow the NozzleWorks brochures, v3 2026-10-06
+(OneDrive: 01 Marketing/04 Brochures/AKBO NL/NozzleWorks_Brochures_2026-10-06_v3):
   KLMN  Classic                         AKCN  Classic Protection Plus
-  AKMN  Multi-Purpose (brass)           AKRN  Multi-Purpose (stainless)
+  AKMN001/AKMNP01  Classic Plus         AKRN  Classic SS (food grade)
+  AKNN  Classic Lite                    AKMB  Classic High-Flow
+  AKRH  Classic Hot Wash                AKRNP01-BL-EX  Classic ATEX
+  AKRN002-LB-LAT  Classic SS Sterilisable
   AKMN011/AKMNP11  Blue King            BMFT/BRFT  Blue Princess
-  AKNN  Lightweight                     BABT/BMBT  Baby
-  AKMB/AKRB  High-Flow                  AKRH  Hot-Water
-  AKRNP01-BL-EX  ATEX                   AKRN002-LB-LAT  Sterilisable
-  AKRSV01  The Squeezer                 AGIL572  Spray Gun XS Lite
-  AKAWLU1  Air-Boosted                  AKKS  Shower Wash Head
+  BABT/BMBT  Baby                       AKRSV01  The Squeezer
+  AGIL572  Spray Gun XS Lite            AKAWLU1  Air-Boosted
+  AKKS  Shower Wash Head                BALR/BARR  Shielded ball valve
   AKMSH/AKRSH (robust)  Twistflow WD Nozzle
   AKMSHL/AKRSHL (water-saving)  Twistflow Lite WD Nozzle
   AKNSH01  Twistflow-L Lite             TWRWR02  Twistflow M / L / XL
-  BALR/BARR  Shielded ball valve
+  AKRB001-BL (stainless high flow) is in no brochure - Classic High-Flow used.
 Items with no NozzleWorks brochure (water savers, Blue Nozzle, swivels, hose
 tails) use a plain product name in the same structure.
 """
@@ -37,35 +38,35 @@ def _d(*parts):
 
 FIXED = {
     # ---- Heavy duty guns
-    "AKNN001-B": _d("Lightweight water gun", NTG, "blue", PA),
+    "AKNN001-B": _d("Classic Lite water gun", NTG, "blue", PA),
     "BMFT001-B": _d("Blue Princess water gun", NTG, "blue", BR),
     "BMFT001-B-PRIN": _d("Blue Princess water gun", NTG, "PRINCESS logo", "blue", BR),
     "BMFTP11-B-PRIN": _d("Blue Princess water gun", TG, "PRINCESS logo", "blue", BR),
-    "AKMNP01-B": _d("Multi-Purpose water gun", TG, "blue", BR),
-    "AKMNP01-B-SW12": _d("Multi-Purpose water gun", TG, '1/2" F swivel', "blue", BR),
-    "AKMNP01-B-SW34": _d("Multi-Purpose water gun", TG, '3/4" F swivel', "blue", BR),
+    "AKMNP01-B": _d("Classic Plus water gun", TG, "blue", BR),
+    "AKMNP01-B-SW12": _d("Classic Plus water gun", TG, '1/2" F swivel', "blue", BR),
+    "AKMNP01-B-SW34": _d("Classic Plus water gun", TG, '3/4" F swivel', "blue", BR),
     "AKMN011-B": _d("Blue King water gun", NTG, "blue", BR),
     "AKMN011-B-KING": _d("Blue King water gun", NTG, "KING logo", "blue", BR),
     "AKMNP11-B": _d("Blue King water gun", TG, "blue", BR),
     "AKMNP11-B-KING": _d("Blue King water gun", TG, "KING logo", "blue", BR),
-    "AKMB001-BL": _d("High-Flow water gun", NTG, "black", BR),
-    "AKMBP01-BL": _d("High-Flow water gun", TG, "black", BR),
-    "AKRB001-BL": _d("High-Flow water gun", NTG, "black", SS),
+    "AKMB001-BL": _d("Classic High-Flow water gun", NTG, "black", BR),
+    "AKMBP01-BL": _d("Classic High-Flow water gun", TG, "black", BR),
+    "AKRB001-BL": _d("Classic High-Flow water gun", NTG, "black", SS),
     "AKCN001-B": _d("Classic Protection Plus water gun", NTG, "blue", CR),
     "AKCNP01-B": _d("Classic Protection Plus water gun", TG, "blue", CR),
     "AKCNP01-W": _d("Classic Protection Plus water gun", TG, "white", CR),
     "BRFT003-B": _d("Blue Princess water gun", NTG, "blue", SS),
     "BRFT003-B-PRIN": _d("Blue Princess water gun", NTG, "PRINCESS logo", "blue", SS),
     "BRFTP03-B-PRIN": _d("Blue Princess water gun", TG, "PRINCESS logo", "blue", SS),
-    "AKRN001-B": _d("Multi-Purpose water gun", NTG, "blue", SS),
-    "AKRN001-W": _d("Multi-Purpose water gun", NTG, "white", SS),
-    "AKRNP01-B": _d("Multi-Purpose water gun", TG, "blue", SS),
-    "AKRNP01-W": _d("Multi-Purpose water gun", TG, "white", SS),
-    "AKRHP01-R": _d("Hot-Water gun", TG, "Teflon/air insulated grip", "red", SS),
-    "AKRHPB1-R": _d("Hot-Water gun", TG, "high flow", "Teflon/air insulated grip", "red", SS),
-    "AKRHP02-R-L40": _d("Hot-Water gun", TG, "40 cm lance", "Teflon/air insulated grip", "red", SS),
-    "AKRNP01-BL-EX": _d("ATEX water gun", TG, "Zone 1 & 2", "black", SS),
-    "AKRN002-LB-LAT": _d("Sterilisable water gun", "latex jacket", "light blue", SS),
+    "AKRN001-B": _d("Classic SS water gun", NTG, "blue", SS),
+    "AKRN001-W": _d("Classic SS water gun", NTG, "white", SS),
+    "AKRNP01-B": _d("Classic SS water gun", TG, "blue", SS),
+    "AKRNP01-W": _d("Classic SS water gun", TG, "white", SS),
+    "AKRHP01-R": _d("Classic Hot Wash water gun", TG, "Teflon/air insulated grip", "red", SS),
+    "AKRHPB1-R": _d("Classic Hot Wash water gun", TG, "high flow", "Teflon/air insulated grip", "red", SS),
+    "AKRHP02-R-L40": _d("Classic Hot Wash water gun", TG, "40 cm lance", "Teflon/air insulated grip", "red", SS),
+    "AKRNP01-BL-EX": _d("Classic ATEX water gun", TG, "Zone 1 & 2", "black", SS),
+    "AKRN002-LB-LAT": _d("Classic SS Sterilisable water gun", "latex jacket", "light blue", SS),
     "AKRSV01-B": _d("The Squeezer valve", 'self-closing, 1/2" F x 1/2" F', "blue", SS304),
     "AKR001-B": _d("The Squeezer shower head", '1/2" M', "blue", SS304 + " / PA66"),
     # ---- Baby series
@@ -109,7 +110,7 @@ FIXED = {
 
 for c in ["B", "R", "G", "BL", "Y", "W"]:
     FIXED[f"KLMN001-{c}"] = _d("Classic water gun", "w/o trigger insulation", COLOURS[c], BR)
-    FIXED[f"AKMN001-{c}"] = _d("Multi-Purpose water gun", NTG, COLOURS[c], BR)
+    FIXED[f"AKMN001-{c}"] = _d("Classic Plus water gun", NTG, COLOURS[c], BR)
 for c in ["B", "R", "W"]:
     FIXED[f"AKMSH03-{c}"] = _d("Twistflow WD Nozzle", "w/ handle", f"black head / {COLOURS[c]} handle", BR)
     FIXED[f"AKRSH03-{c}"] = _d("Twistflow WD Nozzle", "w/ handle", f"black head / {COLOURS[c]} handle",
