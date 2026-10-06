@@ -17,6 +17,8 @@ from openpyxl.comments import Comment
 from openpyxl.formatting.rule import FormulaRule
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 
+from nw_descriptions import nw_description
+
 HERE = Path(__file__).parent
 SRC = HERE / "ARBO_Pricelist_washdown_guns_2026-08-15.xlsx"
 CONV = HERE / "akbo_conversion_table.tsv"
@@ -194,7 +196,7 @@ ws["A11"].font = Font(name=FONT, size=8, italic=True)
 
 # ---------------------------------------------------------------- column headers
 HDR = 13
-heads = ["AKBO Product code", "Nozzleworks Part No", "Description", "Net weight (kg)", "Weight source",
+heads = ["AKBO Product code", "Nozzleworks Part No", "AKBO description", "Proposed NW description", "Net weight (kg)", "Weight source",
          "Supplier price EUR / pc", None, None,
          "Landed cost NZD / pc", None, None,
          "List price NZD / pc (ex GST)", None, None,
@@ -203,10 +205,10 @@ for col, h in enumerate(heads, start=1):
     c = ws.cell(HDR, col, h)
     c.font, c.fill, c.border = f_hdr, fill_section, box
     c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-for c1, c2 in [(6, 8), (9, 11), (12, 14)]:
+for c1, c2 in [(7, 9), (10, 12), (13, 15)]:
     ws.merge_cells(start_row=HDR, start_column=c1, end_row=HDR, end_column=c2)
 ws.row_dimensions[HDR].height = 30
-ws.freeze_panes = ws.cell(HDR + 1, 3)
+ws.freeze_panes = ws.cell(HDR + 1, 5)
 
 # ---------------------------------------------------------------- body
 def is_tier_row(row):
@@ -230,7 +232,7 @@ for idx, row in enumerate(src_rows):
         continue  # our own column header replaces it
     if is_tier_row(row):
         tiers = [v for v in (c, d, e)]
-        for base in (6, 9, 12):
+        for base in (7, 10, 13):
             for k, t in enumerate(tiers):
                 cell = ws.cell(out, base + k, t)
                 cell.font, cell.fill, cell.border = f_hdr, fill_hdr, box
@@ -238,16 +240,16 @@ for idx, row in enumerate(src_rows):
         label = a if isinstance(a, str) else "Qty break"
         cell = ws.cell(out, 1, label)
         cell.font = f_hdr
-        for col in range(1, 6):
+        for col in range(1, 7):
             ws.cell(out, col).fill = fill_hdr
-        ws.cell(out, 15).fill = fill_hdr
+        ws.cell(out, 16).fill = fill_hdr
         out += 1
         continue
     if isinstance(a, str) and b is None and not isinstance(c, (int, float)):
         # section / sub-group heading (ignore AKBO's internal discount % cells)
         nxt = next((r for r in src_rows[idx + 1:] if any(v is not None for v in r)), None)
         main = nxt is not None and nxt[0] == "Product code"
-        for col in range(1, 16):
+        for col in range(1, 17):
             ws.cell(out, col).fill = fill_section if main else fill_group
         cell = ws.cell(out, 1, a)
         cell.font = f_section if main else f_bold
@@ -262,26 +264,28 @@ for idx, row in enumerate(src_rows):
     ws.cell(rr, 1, code).font = f_bold
     ws.cell(rr, 2, f'=IFERROR(INDEX(Conversion!$C$2:$C$500,MATCH($A{rr},Conversion!$B$2:$B$500,0)),"NOT ASSIGNED")').font = f_body
     ws.cell(rr, 3, desc).font = f_body
+    nwd = nw_description(code, desc)
+    ws.cell(rr, 4, nwd).font = f_bold if nwd else f_body
     wkg, wsrc = W.get(code, (None, "MISSING - add weight"))
-    cw = ws.cell(rr, 4, wkg)
+    cw = ws.cell(rr, 5, wkg)
     cw.number_format, cw.font = KG, f_input
-    ws.cell(rr, 5, wsrc).font = Font(name=FONT, size=8, color="666666")
+    ws.cell(rr, 6, wsrc).font = Font(name=FONT, size=8, color="666666")
     if wsrc.startswith("ESTIMATE") or wkg is None:
         cw.fill = fill_amber
         estimates.append((code, wkg, wsrc))
     notes = []
     for k, v in enumerate((c, d, e)):
-        col = 6 + k
+        col = 7 + k
         if isinstance(v, (int, float)):
             pc = ws.cell(rr, col, round(v, 6))
             pc.number_format, pc.font = EUR, f_input
         elif isinstance(v, str):
             notes.append(f"AKBO note at 3rd break: '{v}'")
-        L = 9 + k
-        S = 12 + k
+        L = 10 + k
+        S = 13 + k
         pcol = openpyxl.utils.get_column_letter(col)
         lcol = openpyxl.utils.get_column_letter(L)
-        ws.cell(rr, L, f'=IF({pcol}{rr}="","",{pcol}{rr}/{FX}*(1+{DUTY})+$D{rr}*(1+{VOL})*{FRT})').number_format = NZD
+        ws.cell(rr, L, f'=IF({pcol}{rr}="","",{pcol}{rr}/{FX}*(1+{DUTY})+$E{rr}*(1+{VOL})*{FRT})').number_format = NZD
         ws.cell(rr, S, f'=IF({lcol}{rr}="","",ROUND({lcol}{rr}*(1+{MU}),2))').number_format = NZD
         ws.cell(rr, L).font = f_body
         ws.cell(rr, S).font = f_bold
@@ -289,13 +293,13 @@ for idx, row in enumerate(src_rows):
         notes.append(CODE_NOTES[code])
     static = " ".join(notes)
     static_q = static.replace('"', '""')
-    ws.cell(rr, 15, (
+    ws.cell(rr, 16, (
         f'=TRIM(IF($B{rr}="NOT ASSIGNED","No NW part no. ","")'
         f'&IFERROR(IF(INDEX(Conversion!$J$2:$J$500,MATCH($A{rr},Conversion!$B$2:$B$500,0))="Needs review",'
         f'"Conversion table: needs review. ",""),"")'
-        f'&IF(LEFT($E{rr},8)="ESTIMATE","Weight estimated. ","")&"{static_q}")'
+        f'&IF(LEFT($F{rr},8)="ESTIMATE","Weight estimated. ","")&"{static_q}")'
     )).font = Font(name=FONT, size=8)
-    for col in range(1, 16):
+    for col in range(1, 17):
         ws.cell(rr, col).border = box
     item_rows.append(rr)
     out += 1
@@ -306,24 +310,25 @@ ws.conditional_formatting.add(
     f"B{HDR+1}:B{last}",
     FormulaRule(formula=[f'$B{HDR+1}="NOT ASSIGNED"'], fill=fill_red, font=Font(name=FONT, size=9, bold=True, color="C00000")))
 
-widths = {"A": 18, "B": 20, "C": 58, "D": 9, "E": 30, "F": 10, "G": 10, "H": 10,
-          "I": 11, "J": 11, "K": 11, "L": 12, "M": 12, "N": 12, "O": 48}
+widths = {"A": 18, "B": 20, "C": 50, "D": 55, "E": 9, "F": 30, "G": 10, "H": 10, "I": 10,
+          "J": 11, "K": 11, "L": 11, "M": 12, "N": 12, "O": 12, "P": 48}
 for k, v in widths.items():
     ws.column_dimensions[k].width = v
 for rr in item_rows:
     ws.cell(rr, 3).alignment = Alignment(wrap_text=True, vertical="top")
-    ws.cell(rr, 5).alignment = Alignment(wrap_text=True, vertical="top")
-    ws.cell(rr, 15).alignment = Alignment(wrap_text=True, vertical="top")
+    ws.cell(rr, 4).alignment = Alignment(wrap_text=True, vertical="top")
+    ws.cell(rr, 6).alignment = Alignment(wrap_text=True, vertical="top")
+    ws.cell(rr, 16).alignment = Alignment(wrap_text=True, vertical="top")
 
-ws["L5"] = "Items listed"
-ws["M5"] = f'=COUNT(F{HDR+1}:F{last})'
-ws["L6"] = "No NW part no."
-ws["M6"] = f'=COUNTIF(B{HDR+1}:B{last},"NOT ASSIGNED")'
-ws["L7"] = "Estimated weights"
-ws["M7"] = f'=COUNTIF(E{HDR+1}:E{last},"ESTIMATE*")'
+ws["M5"] = "Items listed"
+ws["N5"] = f'=COUNT(G{HDR+1}:G{last})'
+ws["M6"] = "No NW part no."
+ws["N6"] = f'=COUNTIF(B{HDR+1}:B{last},"NOT ASSIGNED")'
+ws["M7"] = "Estimated weights"
+ws["N7"] = f'=COUNTIF(F{HDR+1}:F{last},"ESTIMATE*")'
 for rr in (5, 6, 7):
-    ws.cell(rr, 12).font = f_bold
-    ws.cell(rr, 13).font = f_body
+    ws.cell(rr, 13).font = f_bold
+    ws.cell(rr, 14).font = f_body
 ws.print_title_rows = f"{HDR}:{HDR}"
 ws.page_setup.orientation = "landscape"
 ws.page_setup.fitToWidth = 1
