@@ -127,6 +127,13 @@ for k, kg in {
 }.items():
     W[k] = (kg, _EST_FIT)
 
+# AKBO items Nozzleworks will not sell - left off the pricelist, listed on the Flags sheet.
+EXCLUDE = {
+    "AKMNP01-B-SW12": "Swivel variant - not sold (removed from v3 brochures).",
+    "AKMNP01-B-SW34": "Swivel variant - not sold (removed from v3 brochures).",
+}
+excluded = []
+
 # Pricelist codes whose spelling differs from the catalogue/conversion table.
 CODE_NOTES = {
     "BRFTP03-B-PRIN": "Pricelist code BRFTP03 vs catalogue/conversion BRFTP13 - confirm with AKBO.",
@@ -261,6 +268,9 @@ for idx, row in enumerate(src_rows):
     # ---- item row
     code = str(a).strip()
     desc = " ".join(str(b).split())
+    if code in EXCLUDE:
+        excluded.append((code, desc, EXCLUDE[code]))
+        continue
     rr = out
     ws.cell(rr, 1, code).font = f_bold
     ws.cell(rr, 2, f'=IFERROR(INDEX(Conversion!$C$2:$C$500,MATCH($A{rr},Conversion!$B$2:$B$500,0)),"NOT ASSIGNED")').font = f_body
@@ -404,10 +414,18 @@ for cr in conv_rows[1:]:
         fs.cell(r, 3, "Conversion table: " + cr[10]).font = f_body
 r += 1
 fs.cell(r, 1, "AGIL572 / AKAWLU1-B").font = f_body
-fs.cell(r, 3, "AKBO show only one price plus a pack-qty note (48 pcs EUR 9.87 / 20 pcs EUR 66.81) - kept as note, not priced.").font = f_body
+fs.cell(r, 3, "AKBO give one price plus a pack-qty offer (48 pcs EUR 9.87 / 20 pcs EUR 66.81) - priced at the first break, offer kept as a note.").font = f_body
 r += 1
 fs.cell(r, 1, "Heavy duty spray guns").font = f_body
 fs.cell(r, 3, "AKBO give no >=50 pcs price for most guns - left blank.").font = f_body
+
+r += 2
+fs.cell(r, 1, "4. AKBO items left off the pricelist (not sold by Nozzleworks)").font = f_bold
+for code, desc, why in excluded:
+    r += 1
+    fs.cell(r, 1, code).font = f_body
+    fs.cell(r, 2, desc).font = f_body
+    fs.cell(r, 3, why).font = f_body
 fs.column_dimensions["A"].width = 22
 fs.column_dimensions["B"].width = 60
 fs.column_dimensions["C"].width = 90

@@ -43,8 +43,6 @@ FIXED = {
     "BMFT001-B-PRIN": _d("Blue Princess water gun", NTG, "PRINCESS logo", "blue", BR),
     "BMFTP11-B-PRIN": _d("Blue Princess water gun", TG, "PRINCESS logo", "blue", BR),
     "AKMNP01-B": _d("Classic Plus water gun", TG, "blue", BR),
-    "AKMNP01-B-SW12": _d("Classic Plus water gun", TG, '1/2" F swivel', "blue", BR),
-    "AKMNP01-B-SW34": _d("Classic Plus water gun", TG, '3/4" F swivel', "blue", BR),
     "AKMN011-B": _d("Blue King water gun", NTG, "blue", BR),
     "AKMN011-B-KING": _d("Blue King water gun", NTG, "KING logo", "blue", BR),
     "AKMNP11-B": _d("Blue King water gun", TG, "blue", BR),
