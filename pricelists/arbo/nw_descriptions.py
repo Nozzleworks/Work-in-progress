@@ -67,6 +67,11 @@ FIXED = {
     "AKRN002-LB-LAT": _d("Classic SS Sterilisable WD gun", "latex jacket", "light blue", SS),
     "AKRSV01-B": _d("The Squeezer valve", 'self-closing, 1/2" F x 1/2" F', "blue", SS304),
     "AKR001-B": _d("The Squeezer shower head", '1/2" M', "blue", SS304 + " / PA66"),
+    # ---- Classic guns for lance mounting
+    "KLML002-B": _d("Classic WD gun", "w/o trigger insulation", '1/2" M outlet for lance', "blue", BR),
+    "AKCL002-B": _d("Classic Protection Plus WD gun", '1/2" M outlet for lance', "blue", CR),
+    "AKRL002-B": _d("Classic SS WD gun", '1/2" M outlet for lance', "blue", SS),
+    "AKNL002-B": _d("Classic Lite WD gun", '1/2" M outlet for lance', "blue", PA),
     # ---- Baby series
     "BABTN01-B": _d("Baby WD gun", "rear trigger", "blue", AL),
     "BABTLF1-BL": _d("Baby WD gun", 'rear trigger, 1/2" F outlet', "black", AL),

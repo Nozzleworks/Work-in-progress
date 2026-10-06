@@ -29,6 +29,11 @@ OUT = HERE / "Nozzleworks_Pricelist_AKBO_washdown_guns.xlsx"
 CAT = "Catalogue"
 W = {
     "AKNN001-B": (0.480, "Cat p.16/17"),
+    # Classic guns for lance mounting (1/2" M outlet) - catalogue p.34 gives no weights
+    "KLML002-B": (0.840, "ESTIMATE - not in catalogue; taken as KLMN001 (p.9)"),
+    "AKCL002-B": (0.867, "ESTIMATE - not in catalogue; taken as AKCN001-B (p.13)"),
+    "AKRL002-B": (0.813, "ESTIMATE - not in catalogue; taken as AKRN001 (p.15)"),
+    "AKNL002-B": (0.480, "ESTIMATE - not in catalogue; taken as AKNN001-B (p.17)"),
     "BMFT001-B": (0.463, "Cat p.C (Blue Princess)"),
     "BMFT001-B-PRIN": (0.463, "Cat p.C - same gun as BMFT001-B, logo only"),
     "BMFTP11-B-PRIN": (0.590, "Cat p.C"),
@@ -134,6 +139,22 @@ EXCLUDE = {
 }
 excluded = []
 
+# Items AKBO quoted separately (Andrew, 07-Oct-2026) - not on the 15-08-2026 price list.
+# Inserted as their own section ahead of the Baby guns; EUR price at first break only.
+ADDED_TITLE = "Classic series - WD guns for lance mounting (1/2\" male outlet)"
+ADDED_ITEMS = [
+    ("KLML002-B", 'Brass water gun, without trigger insulation and 1/2"outlet for lance mounting, blue', 27.64),
+    ("AKCL002-B", 'Chrome plated brass water gun, with 1/2" male outlet, blue', 44.49),
+    ("AKRL002-B", 'St.st. (AISI 316) water gun, with 1/2" male outlet, blue', 95.44),
+    ("AKNL002-B", 'Glass reinforced PA66 water gun, with 1/2" male outlet, blue', 30.38),
+]
+ADDED_NOTE = "Added per Andrew 07-Oct-2026 - quoted separately by AKBO, single price only."
+
+# Supplier prices keyed in by Andrew over AKBO's list (None = keep AKBO's value).
+PRICE_OVERRIDES = {
+    "AKAWLU1-B": (None, None, 66.81),  # AKBO note "20pcs 66,81" entered at 3rd break (Andrew 07-Oct-2026)
+}
+
 # Pricelist codes whose spelling differs from the catalogue/conversion table.
 CODE_NOTES = {
     "BRFTP03-B-PRIN": "Pricelist code BRFTP03 vs catalogue/conversion BRFTP13 - confirm with AKBO.",
@@ -179,11 +200,11 @@ ws["A2"] = (f"Built from AKBO price list \"{src['A1'].value}\". "
 ws["A2"].font = Font(name=FONT, size=9, italic=True)
 
 inputs = [
-    ("Exchange rate (EUR per 1 NZD)", 0.46, "0.000", "Per Andrew 28-Sep-2026 - to be reviewed. NZD cost = EUR / rate."),
-    ("Freight rate (NZD per kg)", 30, '$#,##0.00', "Per Andrew 28-Sep-2026 - placeholder, to be updated."),
+    ("Exchange rate (EUR per 1 NZD)", 0.47, "0.000", "Per Andrew 07-Oct-2026 - to be reviewed. NZD cost = EUR / rate."),
+    ("Freight rate (NZD per kg)", 25, '$#,##0.00', "Per Andrew 07-Oct-2026 - placeholder, to be updated."),
     ("Volumetric weight factor (% on net weight)", 0.25, "0.0%", "Per Andrew 30-Sep-2026 - freight kg = net weight x (1 + factor)."),
     ("Tax / duty allowance (% of product cost)", 0.01, "0.0%", "Per Andrew 28-Sep-2026 - 1% on NZD product cost."),
-    ("List price markup (% on landed cost)", 3.5, "0%", "Per Andrew 30-Sep-2026 - 350% default, to be reviewed. List = landed x (1 + markup)."),
+    ("List price markup (% on landed cost)", 1.15, "0%", "Per Andrew 07-Oct-2026 - 115%, to be reviewed. List = landed x (1 + markup)."),
 ]
 r = 4
 ws.cell(r, 1, "INPUTS (edit yellow cells)").font = f_bold
@@ -228,6 +249,12 @@ out = HDR + 1
 blank_run = 0
 item_rows, missing, estimates = [], [], []
 src_rows = [[c.value for c in row] for row in src.iter_rows(min_row=3, max_col=7)]
+_baby = next(i for i, r in enumerate(src_rows) if r[0] == "Baby water guns")
+src_rows[_baby:_baby] = (
+    [[ADDED_TITLE] + [None] * 6, [None] * 7, ["Product code"] + [None] * 6,
+     [None, None, "< 20 pcs", "\u2265 20 pcs", "\u2265 50 pcs", None, None]]
+    + [[code, desc, eur, None, None, None, None] for code, desc, eur in ADDED_ITEMS]
+    + [[None] * 7, [None] * 7])
 for idx, row in enumerate(src_rows):
     a, b, c, d, e, f, g = row
     if all(v is None for v in row):
@@ -285,6 +312,15 @@ for idx, row in enumerate(src_rows):
         cw.fill = fill_amber
         estimates.append((code, wkg, wsrc))
     notes = []
+    if code in PRICE_OVERRIDES:
+        for k, ov in enumerate(PRICE_OVERRIDES[code]):
+            if ov is not None:
+                v = (c, d, e)[k]
+                if isinstance(v, str):
+                    notes.append(f"AKBO note at break {k + 1}: '{v}' - price keyed in.")
+                c, d, e = [ov if j == k else x for j, x in enumerate((c, d, e))]
+    if code in {i[0] for i in ADDED_ITEMS}:
+        notes.append(ADDED_NOTE)
     for k, v in enumerate((c, d, e)):
         col = 7 + k
         if isinstance(v, (int, float)):
