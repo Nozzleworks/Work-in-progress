@@ -1,0 +1,98 @@
+{
+  "classic": {
+    "text": "The Classic is the gun most washdown jobs start with. It's a solid brass body built for everyday hose-down work in food plants, dairy sheds, workshops and yards. It handles up to 24 bar and 95°C water and delivers around 28 l/min, so it copes with both cold rinses and hot-water cleaning. Squeeze the trigger to spray and let go to stop. No more kinked hoses or water running to the drain while you move between jobs. It comes in six colours, so you can colour-code guns by area or task, which is handy for hygiene zoning in food processing.",
+    "check": "Applications (dairy sheds, workshops, yards) and the colour-coding / hygiene-zoning use are suggested, not from the PDF."
+  },
+  "classic-plus": {
+    "text": "The Classic Plus takes the proven Classic brass gun and adds the options that make a difference on a busy site. A trigger guard protects the lever from knocks and accidental squeezes when the gun is dropped or hung up. The swivel option lets the hose turn freely, so it doesn't twist and fight you as you work. Like the Classic, it's rated to 24 bar and 95°C with around 28 l/min of flow, and comes in six colours for colour-coding by area or task.",
+    "check": "Benefits of the trigger guard and swivel are explained in general terms. Confirm the swivel is an option rather than standard."
+  },
+  "classic-high-flow": {
+    "text": "When you're cleaning big areas such as floors, walls, yards, trucks or equipment, the Classic High-Flow gets it done faster. An enlarged bore lifts the flow to around 45 l/min, compared with 28 l/min on the standard Classic, so you move more water across a surface in less time. It's the same tough brass build, rated to 24 bar and 95°C, so it's just as at home on hot-water washdowns. It suits sites where cleaning time matters more than saving every litre.",
+    "check": "Example surfaces (floors, walls, yards, trucks) are suggested."
+  },
+  "classic-protection-plus": {
+    "text": "The Classic Protection Plus is a brass Classic with an extra chrome layer for more resistance to chemicals. It's a good pick where guns get splashed with cleaning agents, sanitisers or detergents day in, day out, and a standard brass body would wear sooner. Performance matches the Classic: up to 24 bar, 95°C and around 28 l/min. You get the same easy trigger control with a longer-lasting finish in harsher cleaning environments.",
+    "check": "\"Longer-lasting\" is inferred from the chemical-resistance claim."
+  },
+  "classic-lite": {
+    "text": "The Classic Lite is built for people who have a gun in their hand all shift. Its PA66 plastic body is much lighter than brass, which means less strain on wrists and forearms over long cleaning runs. It's rated to 12 bar and 50°C with around 28 l/min of flow, so it suits cold and warm-water washdown rather than hot-water cleaning. Outlet variants are available, so you can set it up to suit your hoses and fittings.",
+    "check": "\"Less strain on wrists and forearms\" is a general benefit claim."
+  },
+  "classic-hot-wash": {
+    "text": "Hot water is hard on hands and on guns. The Classic Hot Wash has an insulated body, so the grip stays comfortable during long hot-water washdowns, and an AISI 316 stainless build that stands up to heat and frequent cleaning. It's rated to 24 bar and 95°C. Flow runs from about 28 l/min up to 45 l/min, depending on version. Lance and high-flow versions are available for reaching into equipment or cleaning larger areas quickly.",
+    "check": "Comfort benefit is inferred from \"insulated\"."
+  },
+  "classic-half-inch-qc-outlet": {
+    "text": "The Classic 1/2\" or QC Outlet turns the Classic into a base for your own setup. Its large-bore outlet takes lances, foam attachments and nozzles, so one gun can cover rinsing, foaming and reaching into tight spots. Choose a fixed 1/2\" outlet or a quick-coupling (QC) outlet if you swap attachments often. It's available in brass, chrome or 316 stainless and is rated to 24 bar and 95°C. Flow depends on the lance or nozzle you fit.",
+    "check": "No flow figure in the PDF (shown as \"—\"), so the text says flow depends on the attachment."
+  },
+  "classic-ss-food-grade": {
+    "text": "The Classic SS Food Grade is designed for food and beverage plants where hygiene comes first. It's made from AISI 316 stainless with Viton seals and is FDA-compliant, so it's suitable for use around food production. It handles 24 bar and 95°C with around 28 l/min of flow, so hot-water sanitation runs are no problem. It's available in blue or white to match your site's colour-coding.",
+    "check": "Blue is commonly used for food areas because it's easy to spot. That's left out to avoid an unsupported claim."
+  },
+  "classic-ss-sterilisable": {
+    "text": "For sites that need equipment to be properly sterile, such as labs, pharmaceutical plants and high-care food areas, the Classic SS Sterilisable can go in the autoclave. Its AISI 316 stainless body has a latex jacket and can be sterilised at up to 160°C. In use it's rated to 24 bar and 95°C with around 28 l/min of flow. You get the same easy trigger washdown as the rest of the Classic range, built for the strictest hygiene regimes.",
+    "check": "Example sites (labs, pharma, high-care food) are suggested. Confirm whether the latex jacket needs to be mentioned for allergy reasons."
+  },
+  "classic-atex": {
+    "text": "The Classic ATEX is built for washdown in hazardous areas where flammable gases or vapours may be present. It's TÜV-tested for ATEX Zones 1 and 2, and every metal part is AISI 316 stainless. It's rated to 24 bar and 60°C with around 28 l/min of flow. That makes it the choice for chemical plants, fuel and solvent handling areas, and other sites that need certified equipment.",
+    "check": "Example sites are suggested. The PDF says TÜV-tested for Zones 1 and 2 but doesn't say gas or dust; \"gases or vapours\" matches the Zone 1/2 definitions. Please confirm."
+  },
+  "blue-king": {
+    "text": "The Blue King is our top-of-the-range washdown gun. It's built to clean well and use less water doing it, with at least 16% less water than a standard gun. The soft-touch grip is comfortable for long shifts, and the jet can be adjusted without tools, so operators can go from a gentle rinse to a hard jet in seconds. It has a brass body rated to 30 bar and 95°C, with a flow of 22.2 l/min at 4 bar.",
+    "check": "\"Top-of-the-range\" positioning. The 16% saving is versus an unspecified baseline; the PDF just says \"at least 16% less water\"."
+  },
+  "blue-princess": {
+    "text": "The Blue Princess is a lighter, more compact premium gun with the biggest water saving in the range: at least 26% less water. Its drip-free flat nozzle gives a wide, even spray for rinsing surfaces and stops the drips and puddles when the trigger is released. It's available in brass or AISI 316 stainless and is rated to 25 bar and 95°C, with a flow of 19.0 l/min at 4 bar. It's a good fit where water and heating costs add up.",
+    "check": "\"Biggest water saving in the range\" is inferred from the PDF figures (26% vs 16%)."
+  },
+  "baby-series": {
+    "text": "The Baby Series is a compact washdown gun with a rear trigger, sized for smaller hands. It's comfortable to hold and easy to control for people who find full-size guns bulky. It's available in aluminium, brass or 316 stainless. Depending on the version, it's rated from 12 to 25 bar and 50 to 95°C, with around 18 l/min of flow. It suits lighter washdown, kitchens, smaller processing rooms and any job where a smaller gun is easier to handle.",
+    "check": "Example uses (kitchens, smaller processing rooms) are suggested."
+  },
+  "baby-half-inch-qc-outlet": {
+    "text": "The Baby 1/2\" or QC Outlet has the same compact, rear-trigger body as the Baby Series, with an outlet that takes lances and nozzles. That makes a small gun much more versatile, whether you're reaching under equipment, fitting a fan nozzle for wider coverage or swapping tools during a clean. Choose a 1/2\" or quick-coupling outlet, in aluminium or brass. It's rated to 12 bar and 50–95°C, and flow depends on the attachment.",
+    "check": "No flow figure in the PDF."
+  },
+  "air-boosted-water-gun": {
+    "text": "The Air-Boosted Water Gun mixes compressed air with a small amount of water for a high-impact spray that uses very little water. It's a smart option for cleaning jobs where you want strong cleaning force without flooding the area, or where water use and run-off need to be kept down. It has a cast aluminium body and runs at up to 5 bar.",
+    "check": "Air and water supply requirements aren't in the PDF. Worth adding if you have them."
+  },
+  "spray-gun-xs-lite": {
+    "text": "The Spray Gun XS Lite is a compact, low-cost trigger gun for occasional industrial use. It's a good fit for workshops, maintenance areas and light cleaning where a heavy-duty washdown gun would be overkill. It has a chromed zinc body, runs at up to 4 bar and delivers around 27 l/min at 4 bar. It comes with hose connectors so it's quick to fit.",
+    "check": "The PDF photo shows connector fittings, but the text doesn't mention them. Confirm that fittings are supplied, or delete the last sentence."
+  },
+  "twistflow-wd-nozzle": {
+    "text": "The Twistflow WD Nozzle needs no trigger. Twist the head to open the flow, shape the jet from a wide spray to a focused stream, and twist it shut when you're done. With no trigger to hold, it's comfortable for long washdowns. It works with hot or cold water up to 16 bar and 80°C and delivers around 107 l/min for fast, heavy cleaning. It's available in brass or stainless with POM components.",
+    "check": "—"
+  },
+  "twistflow-lite-wd-nozzle": {
+    "text": "The Twistflow Lite WD Nozzle brings Twistflow twist control to long cleaning jobs where water use matters. At around 32 l/min it uses far less water than the full-size Twistflow WD while still giving a jet you can adjust from spray to stream. It's rated to 16 bar and 80°C and is available in brass or 304 stainless with POM components.",
+    "check": "Comparison with the Twistflow WD (107 l/min) is from the PDF figures."
+  },
+  "twistflow-l-lite": {
+    "text": "The Twistflow-L Lite delivers high capacity at a lower price. Its lightweight polypropylene body is easy to carry and handle, and it still delivers around 108 l/min with the same twist-to-adjust control as the rest of the range. It's rated to 10 bar and 50°C, so it suits cold and warm-water cleaning on farms, yards and general-purpose washdown.",
+    "check": "Applications (farms, yards) are suggested."
+  },
+  "twistflow-m-l-xl": {
+    "text": "The Twistflow M, L and XL are high-flow sprayers for the big jobs: washing down trucks, ships, tanks and sites. Flow runs from around 100 l/min up to about 325 l/min, depending on size. That's enough to shift heavy dirt and cover large areas quickly. They're built from 304 stainless with POM components and rated to 16 bar and 60°C. They have the same twist control as the rest of the range for opening, closing and shaping the jet.",
+    "check": "—"
+  },
+  "twistflow-handles": {
+    "text": "Twistflow Handles give you a solid, comfortable grip for long cleaning shifts with Twistflow heads. A rubber covering cushions the hand and improves grip when wet. The body is brass or stainless with 1/2\" BSP female threads at both ends, so they fit between your hose and the Twistflow head. They come in blue, white or red, so you can colour-code by area or task.",
+    "check": "\"Improves grip when wet\" is a general benefit claim. Colour-coding use is suggested."
+  },
+  "shower-wash-head": {
+    "text": "The Shower Wash Head is an ergonomic hand shower for jobs where a jet is too harsh. It gives a soft, even spray for rinsing meat, fish and vegetables without bruising or damaging the product. It's made from PA66 nylon and rated to 8 bar and 80°C. It comes in blue or white to suit food-plant colour schemes.",
+    "check": "\"Without bruising or damaging\" is inferred from the soft-wash purpose."
+  },
+  "the-squeezer": {
+    "text": "The Squeezer is a self-closing valve: squeeze to open, and the flow stops as soon as you let go. It works with water, other liquids and foam, and takes hoses, lances and nozzles, so it can be the base of many different cleaning and dosing setups. It's made from AISI 304 stainless and rated to 40 bar and 95°C, with around 57 l/min of flow. Fit the Squeezer Shower Head to turn it into a soft-wash tool for delicate produce.",
+    "check": "\"Dosing setups\" is suggested from \"liquids and foam\"."
+  },
+  "squeezer-shower-head": {
+    "text": "The Squeezer Shower Head fits The Squeezer valve for soft washing of delicate produce and surfaces. You get the self-closing control of The Squeezer with a gentle, even shower spray. It's made from PA66 with AISI 304 parts and rated to 8 bar and 80°C. It can be fitted to an existing Squeezer or supplied pre-assembled as a complete unit.",
+    "check": "—"
+  }
+}
