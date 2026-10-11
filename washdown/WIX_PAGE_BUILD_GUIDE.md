@@ -8,7 +8,7 @@ Source: *Washdown Gun Range – Product line-up by series* (2-page PDF).
 |---|---|---|
 | 24 product photos | Media Manager (`classic.jpg`, `blue-king.jpg` …) | Cut from the PDF, about 420 px tall |
 | **Washdown - Series** collection (`WashdownSeries`) | CMS | 5 items: Classic, Premium, Specialty Guns, Twistflow, Shower Head. Fields: Series Name, Slug, Tagline, Intro, Image, Sort Order |
-| **Washdown - Guns** collection (`WashdownGuns`) | CMS | 24 products. Fields: Product Name, Slug, **Series** (reference to Washdown - Series), Image, Short Description, Long Description (empty), Material, Max Pressure, Max Temperature, Flow Rate, Other Specs, Brochure (PDF, empty), Sort Order |
+| **Washdown - Guns** collection (`WashdownGuns`) | CMS | 24 products. Fields: Product Name, Slug, **Series** (reference to Washdown - Series), Image, Short Description, Long Description (loaded, from `long_descriptions.json`), Material, Max Pressure, Max Temperature, Flow Rate, Other Specs, Brochure (PDF, empty), Sort Order |
 
 Product → series mapping:
 
@@ -66,7 +66,7 @@ The Wix API can't add pages to a site built in the classic Wix Editor, so the pa
 ## Optional Page 3: individual product pages
 
 If you want a page per gun (as you have for air blow guns at `/air-blow-gun/{model}`):
-**CMS → Washdown - Guns → Add dynamic page → Item page**, with URL `/washdown-gun/{slug}`. Then link each card on Page 2 to it. The **Long Description** and **Brochure (PDF)** fields are empty and ready for content from each gun's brochure.
+**CMS → Washdown - Guns → Add dynamic page → Item page**, with URL `/washdown-gun/{slug}`. Then link each card on Page 2 to it. Bind the **Long Description** field to a rich-text box. The **Brochure (PDF)** field is still empty, ready for each gun's brochure.
 
 ## Menu and product listing
 
