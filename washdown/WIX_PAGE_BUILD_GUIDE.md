@@ -7,7 +7,7 @@ Source: *Washdown Gun Range – Product line-up by series* (2-page PDF).
 | Item | Where in Wix | Contents |
 |---|---|---|
 | 24 product photos | Media Manager (`classic.jpg`, `blue-king.jpg` …) | Cut from the PDF, about 420 px tall |
-| **Washdown - Series** collection (`WashdownSeries`) | CMS | 6 items: Classic, Premium, Specialty Guns, Twistflow, Shower Head, Accessories. Fields: Series Name, Slug, Tagline, Intro, Image, Sort Order |
+| **Washdown - Series** collection (`WashdownSeries`) | CMS | 5 items: Classic, Premium, Specialty Guns, Twistflow, Shower Head. Fields: Series Name, Slug, Tagline, Intro, Image, Sort Order |
 | **Washdown - Guns** collection (`WashdownGuns`) | CMS | 24 products. Fields: Product Name, Slug, **Series** (reference to Washdown - Series), Image, Short Description, Long Description (empty), Material, Max Pressure, Max Temperature, Flow Rate, Other Specs, Brochure (PDF, empty), Sort Order |
 
 Product → series mapping:
@@ -17,9 +17,8 @@ Product → series mapping:
 - **Specialty Guns (2):** Air-Boosted Water Gun, Spray Gun XS Lite
 - **Twistflow Series (5):** Twistflow WD Nozzle, Twistflow Lite WD Nozzle, Twistflow-L Lite, Twistflow M / L / XL, Twistflow Handles
 - **Shower Head Series (3):** Shower Wash Head, The Squeezer, Squeezer Shower Head
-- **Accessories (0):** the PDF lists none yet. Add them to *Washdown - Guns* with Series = Accessories.
 
-The Wix API can't add pages to a site built in the classic Wix Editor, so the pages below have to be added in the Editor. Because the content lives in the CMS, you only build **2 pages** (one main, one dynamic). The dynamic page produces all 6 sub-pages automatically.
+The Wix API can't add pages to a site built in the classic Wix Editor, so the pages below have to be added in the Editor. Because the content lives in the CMS, you only build **2 pages** (one main, one dynamic). The dynamic page produces all 5 sub-pages automatically.
 
 ---
 
@@ -34,7 +33,7 @@ The Wix API can't add pages to a site built in the classic Wix Editor, so the pa
      > From everyday brass guns to food-grade stainless, ATEX-rated and water-saving models, our washdown range covers hose-down cleaning across food processing, agriculture and industry. Every gun has its own detailed brochure, so ask us for the one you need.
 2. **Series grid**
    - Add a **Repeater** (or reuse the card layout from your other product-group pages).
-   - **Add → CMS → Dataset**, connect it to **Washdown - Series**, sort by **Sort Order ascending**, and set items per load to 6.
+   - **Add → CMS → Dataset**, connect it to **Washdown - Series**, sort by **Sort Order ascending**, and set items per load to 5.
    - Connect the card image to **Image**, the title to **Series Name**, and the text to **Tagline**.
    - Connect the card button (or the whole card) link to the **Washdown - Series (Item)** dynamic page. Do this after Page 2 exists.
 3. **"Did you know? Why a trigger gun beats an open hose"** (5 tiles, copy from the PDF):
@@ -45,7 +44,7 @@ The Wix API can't add pages to a site built in the classic Wix Editor, so the pa
    - **Uncontrolled hoses injure people.** Burst hot-water hoses scald, dropped hoses whip, and pooled water causes slips. Release the trigger and the flow stops.
 4. **Call to action:** *Discuss the options with our team*: 022 132 9900 · info@nozzleworks.co.nz
 
-## Page 2: Series sub-pages (one dynamic page that produces all 6)
+## Page 2: Series sub-pages (one dynamic page that produces all 5)
 
 **CMS → Washdown - Series → More actions → Add dynamic page → Item page.**
 
@@ -71,7 +70,7 @@ If you want a page per gun (as you have for air blow guns at `/air-blow-gun/{mod
 
 ## Menu and product listing
 
-- **Menu:** add *Washdown Guns* → `/washdown`, with 6 sub-items: `/washdown/classic-series`, `/washdown/premium-series`, `/washdown/specialty-guns`, `/washdown/twistflow-series`, `/washdown/shower-head-series`, `/washdown/accessories`.
+- **Menu:** add *Washdown Guns* → `/washdown`, with 5 sub-items: `/washdown/classic-series`, `/washdown/premium-series`, `/washdown/specialty-guns`, `/washdown/twistflow-series`, `/washdown/shower-head-series`.
 - **00 Products collection:** add a *Washdown* group item with Product Page = `https://www.nozzleworks.co.nz/washdown` once the page is published, so it appears with your other product groups. This wasn't done yet because the entry would go live straight away and link to a page that doesn't exist.
 
 ## Data source
