@@ -6,7 +6,7 @@
       "tagline": "Everyday washdown, hot water, food-grade and hazardous areas",
       "intro": "The Classic Series is our everyday washdown range. It starts with solid brass all-rounders in six colours and extends to insulated hot-wash guns, large-bore outlets for lances and foam, FDA-compliant stainless for food processing, autoclave-sterilisable models and ATEX-rated guns for hazardous areas.",
       "sortOrder": 1,
-      "wixImage": "wix:image://v1/3a82b4_e47e98d1b3714de7ab7351590c24c5fd~mv2.jpg/classic.jpg#originWidth=420&originHeight=202"
+      "wixImage": "wix:image://v1/3a82b4_48dd7c73c9f64ee0b087328dd67fa050~mv2.jpg/classic.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "premium-series",
@@ -14,7 +14,7 @@
       "tagline": "Blue King, Blue Princess and Baby: water-saving and compact",
       "intro": "Our premium guns are built to save water and suit the hand. The Blue King and Blue Princess use at least 16% and 26% less water, with soft-touch grips and drip-free nozzles. The Baby Series is a compact rear-trigger gun sized for smaller hands.",
       "sortOrder": 2,
-      "wixImage": "wix:image://v1/3a82b4_aa06bc1c45084c318ed1ad1671550750~mv2.jpg/blue-king.jpg#originWidth=276&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_f4b2e6a45d244e87ac856f015573097c~mv2.jpg/blue-king.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "specialty-guns",
@@ -22,7 +22,7 @@
       "tagline": "Air-boosted and compact",
       "intro": "Guns for jobs outside standard hose-down: an air-boosted water gun that delivers high impact with very little water, and a compact trigger gun for occasional industrial use.",
       "sortOrder": 3,
-      "wixImage": "wix:image://v1/3a82b4_a473fe6c9dc349dc8a3be3681576831c~mv2.jpg/air-boosted-water-gun.jpg#originWidth=289&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_5ab6af030e6c48d1b94b5a97554c6368~mv2.jpg/air-boosted-water-gun.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "twistflow-series",
@@ -30,7 +30,7 @@
       "tagline": "Twist-adjust spray heads and handles",
       "intro": "Twistflow heads open, close and shape the jet with a simple twist, with no trigger to hold. The range runs from water-saving heads for long cleaning jobs up to high-flow sprayers for trucks, ships, tanks and sites, plus rubber-covered handles for comfortable long use.",
       "sortOrder": 4,
-      "wixImage": "wix:image://v1/3a82b4_dde083e0da784d7395df630bc0daff23~mv2.jpg/twistflow-wd-nozzle.jpg#originWidth=420&originHeight=273"
+      "wixImage": "wix:image://v1/3a82b4_3a9f1a4df7324fa0957dc5544bde9f76~mv2.jpg/twistflow-wd-nozzle.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "shower-head-series",
@@ -38,7 +38,7 @@
       "tagline": "Soft wash for delicate produce",
       "intro": "Shower heads give a soft, even wash for meat, fish, vegetables and other delicate produce. Choose a hand shower, or The Squeezer self-closing valve with a shower head fitted.",
       "sortOrder": 5,
-      "wixImage": "wix:image://v1/3a82b4_a64f5fa2bb58493092e2db1a1291a348~mv2.jpg/shower-wash-head.jpg#originWidth=420&originHeight=302"
+      "wixImage": "wix:image://v1/3a82b4_055877d170324bffac8811bb2510675e~mv2.jpg/shower-wash-head.jpg#originWidth=600&originHeight=600"
     }
   ],
   "products": [
@@ -53,7 +53,7 @@
       "maxTemperature": "95°C",
       "flowRate": "28 l/min",
       "image": "classic.jpg",
-      "wixImage": "wix:image://v1/3a82b4_e47e98d1b3714de7ab7351590c24c5fd~mv2.jpg/classic.jpg#originWidth=420&originHeight=202"
+      "wixImage": "wix:image://v1/3a82b4_48dd7c73c9f64ee0b087328dd67fa050~mv2.jpg/classic.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "classic-plus",
@@ -66,7 +66,7 @@
       "maxTemperature": "95°C",
       "flowRate": "28 l/min",
       "image": "classic-plus.jpg",
-      "wixImage": "wix:image://v1/3a82b4_8dd242a56b414dcbb320ee91ac710744~mv2.jpg/classic-plus.jpg#originWidth=345&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_7aea09aaa6ed4ffc82c46ff57984af56~mv2.jpg/classic-plus.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "classic-high-flow",
@@ -79,7 +79,7 @@
       "maxTemperature": "95°C",
       "flowRate": "45 l/min",
       "image": "classic-high-flow.jpg",
-      "wixImage": "wix:image://v1/3a82b4_46eecaa39fe04779aae508dcb897a486~mv2.jpg/classic-high-flow.jpg#originWidth=299&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_39dff0aba45e41e596f839d1a2865748~mv2.jpg/classic-high-flow.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "classic-protection-plus",
@@ -92,7 +92,7 @@
       "maxTemperature": "95°C",
       "flowRate": "28 l/min",
       "image": "classic-protection-plus.jpg",
-      "wixImage": "wix:image://v1/3a82b4_3df416eb2acb435e947fdc53becd7cc6~mv2.jpg/classic-protection-plus.jpg#originWidth=362&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_0e3faff707034451b92ecbed6b5eb060~mv2.jpg/classic-protection-plus.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "classic-lite",
@@ -105,7 +105,7 @@
       "maxTemperature": "50°C",
       "flowRate": "28 l/min",
       "image": "classic-lite.jpg",
-      "wixImage": "wix:image://v1/3a82b4_d5e12f4cc82746fdb6638a2b69ebb2ab~mv2.jpg/classic-lite.jpg#originWidth=315&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_d86fb374eb834bb2a8cde06f3d39d697~mv2.jpg/classic-lite.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "classic-hot-wash",
@@ -118,7 +118,7 @@
       "maxTemperature": "95°C",
       "flowRate": "28–45 l/min",
       "image": "classic-hot-wash.jpg",
-      "wixImage": "wix:image://v1/3a82b4_85450eab582c498280cc0d5544cfced4~mv2.jpg/classic-hot-wash.jpg#originWidth=358&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_b26ee398abac4bb3a187f758ab02f926~mv2.jpg/classic-hot-wash.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "classic-half-inch-qc-outlet",
@@ -131,7 +131,7 @@
       "maxTemperature": "95°C",
       "flowRate": "—",
       "image": "classic-half-inch-qc-outlet.jpg",
-      "wixImage": "wix:image://v1/3a82b4_031e4fa77fb14bfdb1f052bb2015e08a~mv2.jpg/classic-half-inch-qc-outlet.jpg#originWidth=329&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_f779023de31240e6a9b13580952d758e~mv2.jpg/classic-half-inch-qc-outlet.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "classic-ss-food-grade",
@@ -144,7 +144,7 @@
       "maxTemperature": "95°C",
       "flowRate": "28 l/min",
       "image": "classic-ss-food-grade.jpg",
-      "wixImage": "wix:image://v1/3a82b4_6859743021ff4892a2b0e9bb2787db0f~mv2.jpg/classic-ss-food-grade.jpg#originWidth=362&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_68eae703a085485ea36b614802eab614~mv2.jpg/classic-ss-food-grade.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "classic-ss-sterilisable",
@@ -157,7 +157,7 @@
       "maxTemperature": "95°C",
       "flowRate": "≈28 l/min",
       "image": "classic-ss-sterilisable.jpg",
-      "wixImage": "wix:image://v1/3a82b4_08512274bff84aa5b662c8685ba0f364~mv2.jpg/classic-ss-sterilisable.jpg#originWidth=315&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_75e060371b4d45d6ad1caea2743d1d1e~mv2.jpg/classic-ss-sterilisable.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "classic-atex",
@@ -170,7 +170,7 @@
       "maxTemperature": "60°C",
       "flowRate": "28 l/min",
       "image": "classic-atex.jpg",
-      "wixImage": "wix:image://v1/3a82b4_9fab3736c18c482c8bdc3499e38e9c50~mv2.jpg/classic-atex.jpg#originWidth=409&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_69753e4c8122463a8e9e84554bd748f7~mv2.jpg/classic-atex.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "blue-king",
@@ -183,7 +183,7 @@
       "maxTemperature": "95°C",
       "flowRate": "22.2 l/min (4 bar)",
       "image": "blue-king.jpg",
-      "wixImage": "wix:image://v1/3a82b4_aa06bc1c45084c318ed1ad1671550750~mv2.jpg/blue-king.jpg#originWidth=276&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_f4b2e6a45d244e87ac856f015573097c~mv2.jpg/blue-king.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "blue-princess",
@@ -196,7 +196,7 @@
       "maxTemperature": "95°C",
       "flowRate": "19.0 l/min (4 bar)",
       "image": "blue-princess.jpg",
-      "wixImage": "wix:image://v1/3a82b4_cc070cfcdf094427a5aacb6306328473~mv2.jpg/blue-princess.jpg#originWidth=272&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_57f42dde4d124fdeaab6f46b59197558~mv2.jpg/blue-princess.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "baby-series",
@@ -209,7 +209,7 @@
       "maxTemperature": "50–95°C",
       "flowRate": "18 l/min",
       "image": "baby-series.jpg",
-      "wixImage": "wix:image://v1/3a82b4_62879d1cb12c4c86b871e97711515619~mv2.jpg/baby-series.jpg#originWidth=345&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_7125292dfa7340e4af9b65a43b981a36~mv2.jpg/baby-series.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "baby-half-inch-qc-outlet",
@@ -222,7 +222,7 @@
       "maxTemperature": "50–95°C",
       "flowRate": "—",
       "image": "baby-half-inch-qc-outlet.jpg",
-      "wixImage": "wix:image://v1/3a82b4_ed262c42ec3b43879c4cc15de98321e7~mv2.jpg/baby-half-inch-qc-outlet.jpg#originWidth=295&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_789b52c14308401988056a017a0c6188~mv2.jpg/baby-half-inch-qc-outlet.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "air-boosted-water-gun",
@@ -235,7 +235,7 @@
       "maxTemperature": "—",
       "flowRate": "—",
       "image": "air-boosted-water-gun.jpg",
-      "wixImage": "wix:image://v1/3a82b4_a473fe6c9dc349dc8a3be3681576831c~mv2.jpg/air-boosted-water-gun.jpg#originWidth=289&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_5ab6af030e6c48d1b94b5a97554c6368~mv2.jpg/air-boosted-water-gun.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "spray-gun-xs-lite",
@@ -248,7 +248,7 @@
       "maxTemperature": "—",
       "flowRate": "≈27 l/min (4 bar)",
       "image": "spray-gun-xs-lite.jpg",
-      "wixImage": "wix:image://v1/3a82b4_add3321af34d47b4bf9f9465a4aaa098~mv2.jpg/spray-gun-xs-lite.jpg#originWidth=400&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_656247c0f31640bab8f3670a9e20dc54~mv2.jpg/spray-gun-xs-lite.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "twistflow-wd-nozzle",
@@ -261,7 +261,7 @@
       "maxTemperature": "80°C",
       "flowRate": "≈107 l/min",
       "image": "twistflow-wd-nozzle.jpg",
-      "wixImage": "wix:image://v1/3a82b4_dde083e0da784d7395df630bc0daff23~mv2.jpg/twistflow-wd-nozzle.jpg#originWidth=420&originHeight=273"
+      "wixImage": "wix:image://v1/3a82b4_3a9f1a4df7324fa0957dc5544bde9f76~mv2.jpg/twistflow-wd-nozzle.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "twistflow-lite-wd-nozzle",
@@ -274,7 +274,7 @@
       "maxTemperature": "80°C",
       "flowRate": "≈32 l/min",
       "image": "twistflow-lite-wd-nozzle.jpg",
-      "wixImage": "wix:image://v1/3a82b4_38043694646f4d4c859f76d23822cac4~mv2.jpg/twistflow-lite-wd-nozzle.jpg#originWidth=153&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_8361ab658a66445ba1fc47cafc528733~mv2.jpg/twistflow-lite-wd-nozzle.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "twistflow-l-lite",
@@ -287,7 +287,7 @@
       "maxTemperature": "50°C",
       "flowRate": "≈108 l/min",
       "image": "twistflow-l-lite.jpg",
-      "wixImage": "wix:image://v1/3a82b4_fe55dfafc10644dc8962f5ce7500fb17~mv2.jpg/twistflow-l-lite.jpg#originWidth=143&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_32ceb99cdf7d4edf875e117998f2b04f~mv2.jpg/twistflow-l-lite.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "twistflow-m-l-xl",
@@ -300,7 +300,7 @@
       "maxTemperature": "60°C",
       "flowRate": "≈100–325 l/min",
       "image": "twistflow-m-l-xl.jpg",
-      "wixImage": "wix:image://v1/3a82b4_8c6831213ca441ec97595214b008821e~mv2.jpg/twistflow-m-l-xl.jpg#originWidth=420&originHeight=271"
+      "wixImage": "wix:image://v1/3a82b4_e0e678b016d44674b50a834b762feb28~mv2.jpg/twistflow-m-l-xl.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "twistflow-handles",
@@ -314,7 +314,7 @@
       "flowRate": "—",
       "otherSpecs": "Colours: blue, white, red · Thread: 2× 1/2\" BSP F",
       "image": "twistflow-handles.jpg",
-      "wixImage": "wix:image://v1/3a82b4_74f70c517830466abf8eeede5b3fd2b1~mv2.jpg/twistflow-handles.jpg#originWidth=394&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_ccbfb7dfbba64d6e89dec38830fba58b~mv2.jpg/twistflow-handles.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "shower-wash-head",
@@ -327,7 +327,7 @@
       "maxTemperature": "80°C",
       "flowRate": "—",
       "image": "shower-wash-head.jpg",
-      "wixImage": "wix:image://v1/3a82b4_a64f5fa2bb58493092e2db1a1291a348~mv2.jpg/shower-wash-head.jpg#originWidth=420&originHeight=302"
+      "wixImage": "wix:image://v1/3a82b4_055877d170324bffac8811bb2510675e~mv2.jpg/shower-wash-head.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "the-squeezer",
@@ -340,7 +340,7 @@
       "maxTemperature": "95°C",
       "flowRate": "≈57 l/min",
       "image": "the-squeezer.jpg",
-      "wixImage": "wix:image://v1/3a82b4_4e102da6d1e4454cb783b1a43591f59e~mv2.jpg/the-squeezer.jpg#originWidth=420&originHeight=245"
+      "wixImage": "wix:image://v1/3a82b4_ad5cf8ddbfcb48f7b22161fb4f3acc21~mv2.jpg/the-squeezer.jpg#originWidth=600&originHeight=600"
     },
     {
       "slug": "squeezer-shower-head",
@@ -353,7 +353,7 @@
       "maxTemperature": "80°C",
       "flowRate": "—",
       "image": "squeezer-shower-head.jpg",
-      "wixImage": "wix:image://v1/3a82b4_bf747878151b4ce8a330956cba3fe564~mv2.jpg/squeezer-shower-head.jpg#originWidth=362&originHeight=420"
+      "wixImage": "wix:image://v1/3a82b4_db416f56542240c783c384cf19109192~mv2.jpg/squeezer-shower-head.jpg#originWidth=600&originHeight=600"
     }
   ]
 }

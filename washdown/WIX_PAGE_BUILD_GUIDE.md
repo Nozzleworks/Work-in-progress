@@ -6,7 +6,7 @@ Source: *Washdown Gun Range – Product line-up by series* (2-page PDF).
 
 | Item | Where in Wix | Contents |
 |---|---|---|
-| 24 product photos | Media Manager (`classic.jpg`, `blue-king.jpg` …) | Cut from the PDF, about 420 px tall |
+| 24 product photos | Media Manager (`classic.jpg`, `blue-king.jpg` …) | Cut from the PDF and padded onto 600×600 white squares so the product never touches the card edge. The CMS uses these padded versions; the originals are in `images/`. |
 | **Washdown - Series** collection (`WashdownSeries`) | CMS | 5 items: Classic, Premium, Specialty Guns, Twistflow, Shower Head. Fields: Series Name, Slug, Tagline, Intro, Image, Sort Order |
 | **Washdown - Guns** collection (`WashdownGuns`) | CMS | 24 products. Fields: Product Name, Slug, **Series** (reference to Washdown - Series), Image, Short Description, Long Description (loaded, from `long_descriptions.json`), Material, Max Pressure, Max Temperature, Flow Rate, Other Specs, Brochure (PDF, empty), Sort Order |
 
