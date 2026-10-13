@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="600" viewBox="0 0 600 600"><rect width="600" height="600" fill="#ffffff"/>
+<defs>
+  <g id="gun">
+    <path d="M24 34 L8 128 Q6 138 16 138 L46 138 Q54 138 55 130 L66 34 Z" fill="#2F6BD8"/>
+    <rect x="0" y="0" width="160" height="46" rx="16" fill="#2F6BD8"/>
+    <rect x="158" y="12" width="18" height="22" rx="4" fill="#9AA5B8"/>
+    <rect x="14" y="136" width="30" height="16" rx="3" fill="#9AA5B8"/>
+    <path d="M82 46 Q96 80 78 112" stroke="#9AA5B8" stroke-width="9" fill="none" stroke-linecap="round"/>
+  </g>
+  <g id="tick"><circle r="30" fill="#2E9E5B"/><path d="M-14 1 L-4 12 L15 -11" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g id="cross"><circle r="30" fill="#D93A3A"/><path d="M-11 -11 L11 11 M11 -11 L-11 11" stroke="#fff" stroke-width="8" stroke-linecap="round"/></g>
+  <g id="drop"><path d="M0 -22 C10 -8 16 2 16 9 A16 16 0 0 1 -16 9 C-16 2 -10 -8 0 -22 Z" fill="#4FA3E8"/></g>
+  <g id="coin"><circle r="30" fill="#F2B632" stroke="#C98E12" stroke-width="4"/><text y="13" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="38" fill="#7A5300">$</text></g>
+  <g id="flame"><path d="M0 -40 C18 -18 28 -4 24 14 A24 24 0 0 1 -24 14 C-28 -2 -16 -12 -10 -26 C-6 -14 0 -10 4 -8 C6 -20 4 -30 0 -40 Z" fill="#F28C28"/><path d="M0 -6 C8 4 12 10 10 18 A10 10 0 0 1 -10 18 C-12 10 -6 4 0 -6 Z" fill="#FFD166"/></g>
+</defs>
+<use href="#gun" x="0" y="0" transform="translate(40 140) scale(0.8)"/>
+<g fill="#4FA3E8" opacity="0.85"><circle cx="200" cy="160" r="4"/><circle cx="240" cy="140" r="5"/><circle cx="240" cy="180" r="5"/><circle cx="285" cy="120" r="6"/><circle cx="285" cy="160" r="6"/><circle cx="285" cy="200" r="6"/><circle cx="335" cy="100" r="7"/><circle cx="335" cy="145" r="7"/><circle cx="335" cy="180" r="7"/><circle cx="335" cy="220" r="7"/><circle cx="390" cy="85" r="7"/><circle cx="390" cy="132" r="7"/><circle cx="390" cy="185" r="7"/><circle cx="390" cy="235" r="7"/></g>
+<rect x="450" y="80" width="16" height="170" rx="6" fill="#DCE8FA"/>
+<use href="#gun" x="0" y="0" transform="translate(40 390) scale(0.8)"/>
+<path d="M190 410 L430 410" stroke="#2F6BD8" stroke-width="12" stroke-linecap="round"/>
+<circle cx="480" cy="410" r="56" fill="#fff" stroke="#D93A3A" stroke-width="8"/><circle cx="480" cy="410" r="34" fill="#fff" stroke="#D93A3A" stroke-width="8"/><circle cx="480" cy="410" r="12" fill="#D93A3A"/>
+<g fill="#4FA3E8"><circle cx="440" cy="380" r="5"/><circle cx="446" cy="442" r="5"/><circle cx="430" cy="396" r="4"/></g>
+</svg>
