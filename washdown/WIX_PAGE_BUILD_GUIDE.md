@@ -18,7 +18,7 @@ Product → series mapping:
 - **Twistflow Series (5):** Twistflow WD Nozzle, Twistflow Lite WD Nozzle, Twistflow-L Lite, Twistflow M / L / XL, Twistflow Handles
 - **Shower Head Series (3):** Shower Wash Head, The Squeezer, Squeezer Shower Head
 
-The Wix API can't add pages to a site built in the classic Wix Editor, so the pages below have to be added in the Editor. Because the content lives in the CMS, you only build **2 pages** (one main, one dynamic). The dynamic page produces all 5 sub-pages automatically.
+The Wix API can't add pages to a site built in the classic Wix Editor, so the pages below have to be added in the Editor. Because the content lives in the CMS, you build **3 pages**: one main page, one dynamic series page (creates all 5 series pages) and one dynamic product page (creates all 24 product pages).
 
 ---
 
@@ -44,29 +44,57 @@ The Wix API can't add pages to a site built in the classic Wix Editor, so the pa
    - **Uncontrolled hoses injure people.** Burst hot-water hoses scald, dropped hoses whip, and pooled water causes slips. Release the trigger and the flow stops.
 4. **Call to action:** *Discuss the options with our team*: 022 132 9900 · info@nozzleworks.co.nz
 
-## Page 2: Series sub-pages (one dynamic page that produces all 5)
+## Build order
 
-**CMS → Washdown - Series → More actions → Add dynamic page → Item page.**
+Page 1 is done. Build **Page 3 before Page 2**, because the "View details" buttons on Page 2 can only link to Page 3 once it exists.
 
-1. Set the URL to `/washdown/{slug}`. Use the **Slug** field so you get clean URLs like `/washdown/classic-series` and `/washdown/premium-series`.
-2. Bind the page heading to **Series Name**, the sub-heading to **Tagline**, and a paragraph to **Intro**.
-3. **Product grid**
-   - Add a second dataset connected to **Washdown - Guns**.
-   - **Filter:** *Series* **is** *Washdown - Series dataset (current item)*.
-   - **Sort:** Sort Order ascending. Set items per load to 12.
-   - Add a Repeater connected to it. Card fields:
-     - Image → **Image** (set to *Fit* so the guns aren't cropped)
-     - Title → **Product Name**
-     - Text → **Short Description**
-     - Spec rows: **Material**, **Max Pressure**, **Max Temperature**, **Flow Rate** (and **Other Specs** for Twistflow Handles)
-   - Optional "Request brochure" button linked to your contact page or `mailto:info@nozzleworks.co.nz`.
-4. Add the "Discuss the options with our team" CTA strip.
-5. **SEO (Pages → dynamic page → SEO basics):** title `{Series Name} | Washdown Guns | Nozzleworks`, description `{Tagline}`.
+## Page 3: Product page (one dynamic page that creates all 24)
 
-## Optional Page 3: individual product pages
+Go to **CMS → Washdown - Guns → More actions → Add dynamic page → Item page**.
 
-If you want a page per gun (as you have for air blow guns at `/air-blow-gun/{model}`):
-**CMS → Washdown - Guns → Add dynamic page → Item page**, with URL `/washdown-gun/{slug}`. Then link each card on Page 2 to it. Bind the **Long Description** field to a rich-text box. The **Brochure (PDF)** field is still empty, ready for each gun's brochure.
+1. **URL:** set it to `/washdown-gun/{slug}`, using the **Slug** field. You'll get addresses like `/washdown-gun/blue-king`.
+2. **Layout**, from top to bottom. Connect each element by clicking it, then **Connect to CMS**, and choose the page's *Washdown - Guns* dataset:
+   - **Image** → **Image**. Set the display to *Fit*.
+   - **Heading** → **Product Name**.
+   - **Sub-heading** → **Short Description**.
+   - **Text box** → **Long Description**. The text already includes paragraph formatting.
+   - **Specs:** 5 rows, each with a fixed label on the left and a text box connected to the field on the right:
+     - Material → **Material**
+     - Max pressure → **Max Pressure**
+     - Max temperature → **Max Temperature**
+     - Flow rate → **Flow Rate**
+     - Other → **Other Specs**. Only Twistflow Handles uses this field. In the dataset's connection settings, turn on *Hide when empty* (or collapse it).
+3. **"Back to series" button:** connect its link to the **Series** field. Wix should offer the *Washdown - Series (Item)* page there because Page 2 uses that collection. If it doesn't appear yet, finish Page 2 and come back to this step.
+4. **"Request a brochure" button:** link it to your contact page or `mailto:info@nozzleworks.co.nz`.
+5. **Contact banner:** *Discuss the options with our team*: 022 132 9900 · info@nozzleworks.co.nz
+6. **SEO:** go to **Pages → this page → SEO basics**. Set the title to `{Product Name} | Washdown Guns | Nozzleworks` and the description to `{Short Description}`.
+
+## Page 2: Series page with its product list (one dynamic page that creates all 5)
+
+Go to **CMS → Washdown - Series → More actions → Add dynamic page → Item page**. Wix adds a dataset for the current series automatically.
+
+1. **URL:** set it to `/washdown/{slug}`, using the **Slug** field. You'll get addresses like `/washdown/premium-series`.
+2. **Header:** connect the heading to **Series Name**, the sub-heading to **Tagline** and a paragraph to **Intro**.
+3. **Product list:**
+   1. Go to **Add → CMS → Dataset** and connect it to **Washdown - Guns**. Rename it `gunsDataset` so it's easy to spot.
+   2. **Filter:** click *Add filter*, choose the field **Series**, the condition **is**, and the value *Dataset → Washdown - Series* (the page's own dataset). This makes each series page show only its own products.
+   3. **Sort:** Sort Order, ascending.
+   4. **Items to load:** 12. That covers the largest series, Classic, with 10 products.
+   5. Add a **Repeater** and connect it to `gunsDataset`. Lay out each card like this:
+      - Image → **Image**, set to *Fit*
+      - Title → **Product Name**
+      - Text → **Short Description**
+      - Optional quick-spec line → **Max Pressure** and **Max Temperature**, for example "24 bar · 95°C"
+      - **"View details" button:** connect its link to the *Washdown - Guns (Item)* page (Page 3).
+4. **Contact banner:** same as Page 3.
+5. **SEO:** set the title to `{Series Name} | Washdown Guns | Nozzleworks` and the description to `{Tagline}`.
+
+## Check the links between pages
+
+- **Page 1 → Page 2:** each series card goes to `/washdown/...` and shows only that series' products.
+- **Page 2 → Page 3:** each "View details" button opens the right product.
+- **Page 3 → Page 2:** "Back to series" returns to the right series.
+- Preview a few pages: Classic Series (10 products), Specialty Guns (2), and Twistflow Handles (the only product that shows Other Specs).
 
 ## Menu and product listing
 
