@@ -58,12 +58,12 @@ Go to **CMS → Washdown - Guns → More actions → Add dynamic page → Item p
    - **Heading** → **Product Name**.
    - **Sub-heading** → **Short Description**.
    - **Text box** → **Long Description**. The text already includes paragraph formatting.
-   - **Specs:** 5 rows, each with a fixed label on the left and a text box connected to the field on the right:
+   - **Specs:** 4 rows, each with a fixed label on the left and a text box connected to the field on the right:
      - Material → **Material**
      - Max pressure → **Max Pressure**
      - Max temperature → **Max Temperature**
      - Flow rate → **Flow Rate**
-     - Other → **Other Specs**. Only Twistflow Handles uses this field. In the dataset's connection settings, turn on *Hide when empty* (or collapse it).
+   - **Other Specs:** add one text box under the specs with no label, connected to **Other Specs**. Only Twistflow Handles has a value, and it includes its own labels ("Colours: … · Thread: …"), so the box is simply blank on the other 23 products.
 3. **"Back to series" button:** connect its link to the **Series** field. Wix should offer the *Washdown - Series (Item)* page there because Page 2 uses that collection. If it doesn't appear yet, finish Page 2 and come back to this step.
 4. **"Request a brochure" button:** link it to your contact page or `mailto:info@nozzleworks.co.nz`.
 5. **Contact banner:** *Discuss the options with our team*: 022 132 9900 · info@nozzleworks.co.nz
